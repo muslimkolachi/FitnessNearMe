@@ -18,7 +18,13 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        emailEditText = findViewById(R.id.emailEditText);
-        registerButton = findViewById(R.id.registerButton);
-
+        registerButton=findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity
+                Intent intent = new Intent(RegistrationActivity.this, LandingPage.class);
+                startActivity(intent);
+            }
+        });
         }}
