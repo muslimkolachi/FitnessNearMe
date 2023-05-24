@@ -1,0 +1,64 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#F6EA98">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:contentDescription="@string/logo"
+        android:layout_width="match_parent"
+        android:layout_height="279dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        app:srcCompat="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:autofillHints="Email"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextTextEmailAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:autofillHints="Password"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextTextPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/register" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="@string/sing_in" />
+</RelativeLayout>

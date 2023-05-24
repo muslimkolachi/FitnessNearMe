@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FitnessNearMe</string>
+    <string name="logo">A description of the image</string>
+    <string name="sing_in">Login</string>
+    <string name="register">Register</string>
+    <string name="Email">Email or UserName</string>
+    <string name="password">Enter Password</string>
+
+
+</resources>
