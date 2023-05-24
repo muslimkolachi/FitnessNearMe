@@ -10,12 +10,13 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:contentDescription="@string/logo"
         android:layout_width="match_parent"
-        android:layout_height="279dp"
+        android:layout_height="222dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:contentDescription="@string/logo"
         app:srcCompat="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
 
     <EditText
