@@ -14,17 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessNearMe"
         tools:targetApi="31">
-
+        <activity
+            android:name=".trysomethingnew"
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".item_exercise"
             android:exported="false" />
