@@ -29,7 +29,6 @@
         android:autofillHints="Email"
         android:ems="10"
         android:hint="@string/Email"
-        android:inputType="textEmailAddress"
         android:minHeight="48dp" />
 
     <EditText
@@ -42,7 +41,6 @@
         android:autofillHints="Password"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword"
         android:minHeight="48dp" />
 
     <Button

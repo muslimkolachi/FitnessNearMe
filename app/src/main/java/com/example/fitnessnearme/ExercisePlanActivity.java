@@ -6,6 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +24,7 @@ public class ExercisePlanActivity extends AppCompatActivity {
 
     private RecyclerView exerciseRecyclerView;
     private ExerciseAdapter exerciseAdapter;
+    private List<Exercise> exerciseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +35,53 @@ public class ExercisePlanActivity extends AppCompatActivity {
         exerciseRecyclerView = findViewById(R.id.exerciseRecyclerView);
         exerciseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Set up exercise data
-        List<Exercise> exerciseList = generateExerciseData();
+        // Initialize the exercise list
+        exerciseList = new ArrayList<>();
 
         // Set up ExerciseAdapter
         exerciseAdapter = new ExerciseAdapter(exerciseList);
         exerciseRecyclerView.setAdapter(exerciseAdapter);
+
+        // Fetch exercise data from PHP script
+        fetchExerciseData();
     }
 
-    private List<Exercise> generateExerciseData() {
-        List<Exercise> exerciseList = new ArrayList<>();
+    private void fetchExerciseData() {
+        String url = "https://fitnessnearmee.000webhostapp.com/exercise.php";
 
-        // Add sample exercises
-        exerciseList.add(new Exercise("Jumping Jacks 12x8", "Description 1", R.drawable._3837_jumping_jack));
-        exerciseList.add(new Exercise("Exercise 2", "Description 2", R.drawable._3837_jumping_jack));
-        exerciseList.add(new Exercise("Exercise 3", "Description 3", R.drawable._ef5b5_be04454269d4483897bc791495770f0b));
-        // Add more exercises as needed
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject exerciseJson = response.getJSONObject(i);
 
-        return exerciseList;
+                                String name = exerciseJson.getString("name");
+                                String description = exerciseJson.getString("description");
+                                String imageUrl = exerciseJson.getString("image_url");
+                                String repRange = exerciseJson.getString("rep_range");
+
+                                exerciseList.add(new Exercise(name, description, imageUrl, repRange));
+                            }
+
+                            // Notify the adapter that the data has changed
+                            exerciseAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        // Handle error case
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(request);
     }
 }

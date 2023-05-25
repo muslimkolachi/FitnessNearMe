@@ -3,12 +3,14 @@ package com.example.fitnessnearme;
 public class Exercise {
     private String name;
     private String description;
-    private int imageResId;
+    private String imageUrl;
+    private String repRange;
 
-    public Exercise(String name, String description, int imageResId) {
+    public Exercise(String name, String description, String imageUrl, String repRange) {
         this.name = name;
         this.description = description;
-        this.imageResId = imageResId;
+        this.imageUrl = imageUrl;
+        this.repRange = repRange;
     }
 
     public String getName() {
@@ -19,7 +21,11 @@ public class Exercise {
         return description;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getRepRange() {
+        return repRange;
     }
 }
