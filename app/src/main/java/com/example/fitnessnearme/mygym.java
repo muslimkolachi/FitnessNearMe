@@ -13,14 +13,17 @@ public class mygym extends AppCompatActivity {
     ImageView facebookIcon;
     ImageView twitterIcon;
     ImageView instagramIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mygym);
+
         facebookIcon = findViewById(R.id.facebookIcon);
         twitterIcon = findViewById(R.id.twitterIcon);
         instagramIcon = findViewById(R.id.instagramIcon);
     }
+
     public void onFacebookIconClicked(View view) {
         String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
@@ -38,9 +41,15 @@ public class mygym extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
         startActivity(intent);
     }
+
     public void onAuthenticatorClicked(View view) {
         // Open the camera here
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intent);
+    }
+
+    public void onExercisePlanClicked(View view) {
+        Intent intent = new Intent(this, ExercisePlanActivity.class);
         startActivity(intent);
     }
 }
