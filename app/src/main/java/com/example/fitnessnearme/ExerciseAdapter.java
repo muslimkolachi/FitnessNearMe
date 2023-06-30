@@ -36,6 +36,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
         holder.exerciseNameTextView.setText(exercise.getName());
         holder.exerciseDescriptionTextView.setText(exercise.getDescription());
+        holder.exerciseRepRangeTextView.setText(exercise.getRepRange());
 
         // Load exercise image asynchronously
         new LoadExerciseImageTask(holder.exerciseImageView).execute(exercise.getImageUrl());
@@ -50,12 +51,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         ImageView exerciseImageView;
         TextView exerciseNameTextView;
         TextView exerciseDescriptionTextView;
+        TextView exerciseRepRangeTextView;
 
         public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
             exerciseImageView = itemView.findViewById(R.id.exerciseImageView);
             exerciseNameTextView = itemView.findViewById(R.id.exerciseNameTextView);
             exerciseDescriptionTextView = itemView.findViewById(R.id.exerciseDescriptionTextView);
+            exerciseRepRangeTextView = itemView.findViewById(R.id.exerciseRepRangeTextView);
         }
     }
 
