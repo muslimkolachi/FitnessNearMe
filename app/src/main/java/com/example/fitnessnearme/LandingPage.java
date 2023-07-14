@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LandingPage extends AppCompatActivity {
     Button eventsButton;
     Button myGymButton;
+    Button trysomethingnew;
     ImageView facebookIcon;
     ImageView twitterIcon;
     ImageView instagramIcon;
@@ -37,6 +38,16 @@ public class LandingPage extends AppCompatActivity {
             public void onClick(View v) {
                 // Start the new activity
                 Intent intent = new Intent(LandingPage.this, mygym.class);
+                startActivity(intent);
+            }
+        });
+
+        trysomethingnew = findViewById(R.id.trySomethingNewButton);
+        trysomethingnew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity
+                Intent intent = new Intent(LandingPage.this, trysomethingnew.class);
                 startActivity(intent);
             }
         });

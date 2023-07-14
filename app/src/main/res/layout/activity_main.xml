@@ -23,18 +23,18 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview"
             android:scaleType="centerInside"
             android:layout_marginBottom="32dp"
             android:animateLayoutChanges="true"
             android:rotationY="360"
-            android:alpha="0"
+            android:alpha="100"
             android:elevation="2dp" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/email"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -42,18 +42,19 @@
             android:ems="10"
             android:hint="Email"
             android:padding="12dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/pass"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:autofillHints="Password"
             android:ems="10"
+            android:inputType="textPassword"
             android:hint="Password"
             android:padding="12dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray" />
 
         <Button
@@ -61,19 +62,31 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:textColor="@android:color/white"
+            android:textColor="@color/logo"
             android:layout_marginTop="24dp"
             android:animateLayoutChanges="true"
-            android:alpha="0" />
+            android:backgroundTint="@color/cardview_dark_background"
+            android:alpha="100" />
         <Button
             android:id="@+id/register"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/cardview_dark_background"
             android:text="Register"
-            android:textColor="@android:color/white"
+            android:textColor="@color/logo"
             android:layout_marginTop="24dp"
             android:animateLayoutChanges="true"
-            android:alpha="0" />
+            android:alpha="100" />
+        <Button
+            android:id="@+id/bypass"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Bypass"
+            android:textColor="@color/logo"
+            android:layout_marginTop="24dp"
+            android:animateLayoutChanges="true"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:alpha="100" />
     </LinearLayout>
 
 </RelativeLayout>

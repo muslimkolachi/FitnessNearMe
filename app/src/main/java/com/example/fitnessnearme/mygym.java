@@ -8,6 +8,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import java.util.ArrayList;
 
 public class mygym extends AppCompatActivity {
     ImageView facebookIcon;
@@ -19,6 +26,22 @@ public class mygym extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mygym);
 
+        // Setup the LineChart
+        LineChart lineChart = findViewById(R.id.line_chart);
+        ArrayList<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(0, 1));
+        entries.add(new Entry(1, 4));
+        entries.add(new Entry(2, 2));
+        entries.add(new Entry(3, 6));
+        entries.add(new Entry(4, 8));
+        LineDataSet dataSet = new LineDataSet(entries, "Label");
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+        LineData lineData = new LineData(dataSets);
+        lineChart.setData(lineData);
+        lineChart.invalidate();
+
+        // Setup the ImageViews
         facebookIcon = findViewById(R.id.facebookIcon);
         twitterIcon = findViewById(R.id.twitterIcon);
         instagramIcon = findViewById(R.id.instagramIcon);

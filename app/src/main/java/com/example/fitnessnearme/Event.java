@@ -5,15 +5,15 @@ public class Event {
     private String title;
     private String date;
     private String venue;
-    private String image;
+    private String imageUrl; // Store the image URL instead of image resource identifier
     private double price;
 
-    public Event(int eventId, String title, String date, String venue, String image, double price) {
+    public Event(int eventId, String title, String date, String venue, String imageUrl, double price) {
         this.eventId = eventId;
         this.title = title;
         this.date = date;
         this.venue = venue;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.price = price;
     }
 
@@ -49,12 +49,12 @@ public class Event {
         this.venue = venue;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public double getPrice() {

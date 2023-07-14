@@ -5,6 +5,13 @@
     <string name="register">Register</string>
     <string name="Email">Email or UserName</string>
     <string name="password">Enter Password</string>
+    <string-array name="sort_options">
+        <item>@string/sort_by_date</item>
+        <item>@string/sort_by_title</item>
+    </string-array>
 
+    <string name="sort_by_date">Sort by Date</string>
+    <string name="sort_by_title">Sort by Title</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>

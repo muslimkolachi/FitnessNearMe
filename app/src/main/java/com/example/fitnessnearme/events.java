@@ -33,6 +33,7 @@ public class events extends AppCompatActivity {
     ImageView twitterIcon;
     ImageView instagramIcon;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
@@ -132,5 +133,15 @@ public class events extends AppCompatActivity {
     private void openSocialMediaLink(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
+    }
+
+    // Method to sort events by date
+    public void sortEventsByDate(View view) {
+        eventAdapter.sortByDate();
+    }
+
+    // Method to sort events by title
+    public void sortEventsByTitle(View view) {
+        eventAdapter.sortByTitle();
     }
 }

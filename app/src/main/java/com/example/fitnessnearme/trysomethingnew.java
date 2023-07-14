@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -29,6 +32,7 @@ import java.util.List;
 public class trysomethingnew extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int DEFAULT_ZOOM = 15;
     private MapView mapView;
     private GoogleMap googleMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -45,22 +49,33 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        Places.initialize(getApplicationContext(), "AIzaSyDIpq9D5bb-NZ5ujUAAhO_khqmB7IEiA5Y");
-        placesClient = Places.createClient(this);
+        if (isGooglePlayServicesAvailable()) {
+            Places.initialize(getApplicationContext(), "AIzaSyAN4wytR_vaWwOdsxD5y5OUGBYK1BYeIz4");
+            placesClient = Places.createClient(this);
+        } else {
+            // Handle the case when Google Play Services is not available or outdated
+            // Show an error message or take appropriate action
+        }
+    }
+
+    private boolean isGooglePlayServicesAvailable() {
+        int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        return status == com.google.android.gms.common.ConnectionResult.SUCCESS;
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         googleMap = map;
-        getLocationPermission();
-        updateLocationUI();
-        getDeviceLocation();
+        if (googleMap != null) {
+            getLocationPermission();
+            updateLocationUI();
+            getDeviceLocation();
+        } else {
+            // Handle the case when the map is not ready
+        }
     }
-
     private void getLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
         } else {
             ActivityCompat.requestPermissions(this,
@@ -70,16 +85,12 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (googleMap != null) {
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        googleMap.setMyLocationEnabled(true);
-                    }
-                }
+                updateLocationUI();
+                getDeviceLocation();
             }
         }
     }
@@ -89,9 +100,7 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
             return;
         }
         try {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 googleMap.setMyLocationEnabled(true);
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
@@ -105,13 +114,11 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
 
     private void getDeviceLocation() {
         try {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> {
                     if (location != null) {
                         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
 
                         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
                         FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
@@ -120,10 +127,12 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
                             if (task.isSuccessful()) {
                                 FindCurrentPlaceResponse response = task.getResult();
                                 if (response != null) {
-                                    for (com.google.android.libraries.places.api.model.PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
+                                    for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
                                         Place place = placeLikelihood.getPlace();
-                                        LatLng placeLatLng = place.getLatLng();
-                                        googleMap.addMarker(new MarkerOptions().position(placeLatLng).title(place.getName()));
+                                        if (placeLikelihood.getLikelihood() > 0.01) {
+                                            LatLng placeLatLng = place.getLatLng();
+                                            googleMap.addMarker(new MarkerOptions().position(placeLatLng).title(place.getName()));
+                                        }
                                     }
                                 }
                             } else {

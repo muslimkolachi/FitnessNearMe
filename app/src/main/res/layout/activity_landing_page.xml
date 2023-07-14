@@ -5,15 +5,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+
     android:background="#F6EA98">
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
 
     <LinearLayout
@@ -21,22 +27,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logoImageView"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="65dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/eventsButton"
             android:layout_width="0dp"
+            android:textColor="@color/logo"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Events" />
+            android:text="Events"
+            android:backgroundTint="@color/cardview_dark_background"
+            />
 
         <Button
             android:id="@+id/myGymButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="My Gym" />
+            android:textColor="@color/logo"
+            android:text="My Gym"
+            android:backgroundTint="@color/cardview_dark_background"/>
 
     </LinearLayout>
 
@@ -45,8 +56,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonLayout"
-        android:layout_marginTop="16dp"
-        android:text="Try Something New" />
+        android:layout_marginTop="69dp"
+        android:text="Try Something New"
+        android:textColor="@color/logo"
+        android:backgroundTint="@color/cardview_dark_background"
+        />
 
     <LinearLayout
         android:id="@+id/socialMediaLayout"
