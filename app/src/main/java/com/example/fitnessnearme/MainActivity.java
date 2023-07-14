@@ -4,25 +4,23 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -37,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextTextPassword;
     private Button login;
     private Button register;
+    private ImageView logo;
 
     private OkHttpClient client;
 
@@ -49,11 +48,37 @@ public class MainActivity extends AppCompatActivity {
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        logo = findViewById(R.id.logo);
 
         client = new OkHttpClient();
 
         // Request location permission when the activity loads
         requestLocationPermission();
+
+        // Set initial visibility of logo to invisible
+        logo.setVisibility(View.INVISIBLE);
+
+        // Fade-in animation for the logo
+        Animation fadeInAnimation = new AlphaAnimation(0f, 1f);
+        fadeInAnimation.setDuration(1000);
+        fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // Animation started
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // Animation ended
+                logo.setVisibility(View.VISIBLE); // Set the visibility to VISIBLE when the animation ends
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // Animation repeated
+            }
+        });
+        logo.startAnimation(fadeInAnimation);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,37 +119,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Location permission granted
-                Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
-            } else {
-                // Location permission denied, show a message or take appropriate action
-                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
-                // Optionally, you can open the app settings page for the user to enable location permission manually
-                openAppSettings();
-            }
-        }
-    }
-
     private void performLogin() {
         String enteredEmail = editTextTextEmailAddress.getText().toString().trim();
         String enteredPassword = editTextTextPassword.getText().toString().trim();
 
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("user", enteredEmail);
-            jsonBody.put("pass", enteredPassword);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(jsonBody.toString(), JSON);
+        RequestBody requestBody = new FormBody.Builder()
+                .add("username", enteredEmail)
+                .add("password", enteredPassword)
+                .build();
 
         Request request = new Request.Builder()
                 .url(LOGIN_URL)
@@ -147,28 +149,21 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseBody = response.body().string();
 
-                try {
-                    JSONObject jsonResponse = new JSONObject(responseBody);
-                    String result = jsonResponse.getString("result");
-                    if (result.equals("LOGIN")) {
-                        // Login successful, navigate to the landing page
-                        Intent intent = new Intent(MainActivity.this, LandingPage.class);
-                        startActivity(intent);
-                    } else {
-                        // Login failed, display an error message
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (responseBody.equals("Login Success")) {
+                    // Login successful, navigate to the landing page
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, "Invalid server response", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, LandingPage.class);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    // Login failed, display an error message
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -176,15 +171,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void openAppSettings() {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(android.net.Uri.parse("package:" + getPackageName()));
-        startActivity(intent);
-    }
-
     private boolean isFieldsEmpty() {
         String email = editTextTextEmailAddress.getText().toString().trim();
         String password = editTextTextPassword.getText().toString().trim();
         return email.isEmpty() || password.isEmpty();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Call handleLocationPermissionResult method from LocationUtils class
+        LocationUtils.handleLocationPermissionResult(requestCode, grantResults, this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Request location permission when the activity resumes
+        if (!LocationUtils.hasLocationPermission(this)) {
+            LocationUtils.requestLocationPermission(this);
+        }
     }
 }

@@ -5,59 +5,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#F6EA98">
+    android:background="#E3F2FD"
+    tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
-        android:layout_height="222dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:contentDescription="@string/logo"
-        app:srcCompat="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:autofillHints="Email"
-        android:ems="10"
-        android:hint="@string/Email"
-        android:minHeight="48dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTextEmailAddress"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:autofillHints="Password"
-        android:ems="10"
-        android:hint="@string/password"
-        android:minHeight="48dp" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview"
+            android:scaleType="centerInside"
+            android:layout_marginBottom="32dp"
+            android:animateLayoutChanges="true"
+            android:rotationY="360"
+            android:alpha="0"
+            android:elevation="2dp" />
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTextPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="@string/register" />
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:autofillHints="Email"
+            android:ems="10"
+            android:hint="Email"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="@string/sing_in" />
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="Password"
+            android:ems="10"
+            android:hint="Password"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="24dp"
+            android:animateLayoutChanges="true"
+            android:alpha="0" />
+        <Button
+            android:id="@+id/register"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="24dp"
+            android:animateLayoutChanges="true"
+            android:alpha="0" />
+    </LinearLayout>
+
 </RelativeLayout>
