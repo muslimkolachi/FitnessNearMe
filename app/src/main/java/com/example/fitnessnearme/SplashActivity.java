@@ -4,10 +4,8 @@ package com.example.fitnessnearme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fitnessnearme.MainActivity;
-import com.example.fitnessnearme.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

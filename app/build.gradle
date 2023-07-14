@@ -5,10 +5,13 @@ plugins {
 android {
     namespace 'com.example.fitnessnearme'
     compileSdk 33
-
+    packagingOptions {
+        exclude 'mozilla/public-suffix-list.txt'
+        exclude 'META-INF/DEPENDENCIES'
+    }
     defaultConfig {
         applicationId "com.example.fitnessnearme"
-        minSdk 24
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -29,6 +32,9 @@ android {
 }
 
 dependencies {
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
