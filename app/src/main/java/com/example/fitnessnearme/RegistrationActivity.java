@@ -2,6 +2,7 @@ package com.example.fitnessnearme;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,17 +19,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private EditText firstNameEditText, emailEditText, numberEditText, passEditText, passwordAgainEditText;
+    private EditText usernamee, emailEditText, weightt, passEditText, passwordAgainEditText, heightt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
         // Initialize your views
-        firstNameEditText = findViewById(R.id.firstNameEditText);
+        usernamee = findViewById(R.id.username);
         emailEditText = findViewById(R.id.email);
-        numberEditText = findViewById(R.id.number);
+        weightt = findViewById(R.id.weight);
+        heightt = findViewById(R.id.height);
         passEditText = findViewById(R.id.pass);
         passwordAgainEditText = findViewById(R.id.paswordagain);
 
@@ -37,14 +41,15 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get user input data
-                String fullname = firstNameEditText.getText().toString().trim();
+                String username = usernamee.getText().toString().trim();
+                String height = heightt.getText().toString().trim();
+                String weight = weightt.getText().toString().trim();
                 String email = emailEditText.getText().toString().trim();
-                String username = numberEditText.getText().toString().trim();
                 String password = passEditText.getText().toString().trim();
                 String passwordAgain = passwordAgainEditText.getText().toString().trim();
 
                 // Validate input (you may add more validation checks as needed)
-                if (fullname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()) {
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()) {
                     Toast.makeText(RegistrationActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -54,19 +59,20 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
+                int parsedHeight = Integer.parseInt(height);
+                int parsedWeight = Integer.parseInt(weight);
+
                 // Send user data to the server
-                registerUser(fullname, email, username, password);
+                registerUser(username, email, parsedHeight, parsedWeight, password);
             }
         });
     }
 
-    private void registerUser(final String fullname, final String email, final String username, final String password) {
+    private void registerUser(final String username, final String email, final int height, final int weight, final String password) {
         // Replace "https://example.com/registration.php" with the actual URL of your PHP script
         String url = "https://fitnessnearmee.000webhostapp.com/signup.php";
 
-        // You can use Volley or OkHttp for making the HTTP request.
-        // Here, I'm using Volley for simplicity.
-
+        // Create the request using Volley
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -91,9 +97,10 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("fullname", fullname);
-                params.put("email", email);
                 params.put("username", username);
+                params.put("email", email);
+                params.put("weight", String.valueOf(weight));  // Convert weight to String
+                params.put("height", String.valueOf(height));  // Convert height to String
                 params.put("password", password);
                 return params;
             }
