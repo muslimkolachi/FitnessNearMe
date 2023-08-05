@@ -3,6 +3,7 @@ package com.example.fitnessnearme;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,7 +51,7 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (isGooglePlayServicesAvailable()) {
-            Places.initialize(getApplicationContext(), "AIzaSyAN4wytR_vaWwOdsxD5y5OUGBYK1BYeIz4");
+            Places.initialize(getApplicationContext(), "AIzaSyCOsuwVaLRN4vmAd1MMdIYol2_GGlhrpfA");
             placesClient = Places.createClient(this);
         } else {
             // Handle the case when Google Play Services is not available or outdated
@@ -74,6 +75,7 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
             // Handle the case when the map is not ready
         }
     }
+
     private void getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
@@ -120,6 +122,10 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
                         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
 
+                        // Print current location to verify
+                        Log.d("LocationDebug", "Current Location: " + currentLatLng.toString());
+
+                        // Fetch nearby places (gyms) using the Places API
                         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
                         FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
 
@@ -127,12 +133,17 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
                             if (task.isSuccessful()) {
                                 FindCurrentPlaceResponse response = task.getResult();
                                 if (response != null) {
+                                    Log.d("PlacesDebug", "Number of Places: " + response.getPlaceLikelihoods().size());
+
                                     for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
                                         Place place = placeLikelihood.getPlace();
-                                        if (placeLikelihood.getLikelihood() > 0.01) {
-                                            LatLng placeLatLng = place.getLatLng();
-                                            googleMap.addMarker(new MarkerOptions().position(placeLatLng).title(place.getName()));
-                                        }
+                                        // Print place details to verify
+                                        Log.d("PlacesDebug", "Place Name: " + place.getName());
+                                        Log.d("PlacesDebug", "Place LatLng: " + place.getLatLng());
+
+                                        // Mark nearby places (gyms) on the map
+                                        LatLng placeLatLng = place.getLatLng();
+                                        googleMap.addMarker(new MarkerOptions().position(placeLatLng).title(place.getName()));
                                     }
                                 }
                             } else {
@@ -140,6 +151,7 @@ public class trysomethingnew extends AppCompatActivity implements OnMapReadyCall
                                 if (exception instanceof ApiException) {
                                     ApiException apiException = (ApiException) exception;
                                     int statusCode = apiException.getStatusCode();
+                                    Log.e("PlacesDebug", "API Exception: " + apiException.getMessage());
                                     // Handle API error
                                 }
                             }

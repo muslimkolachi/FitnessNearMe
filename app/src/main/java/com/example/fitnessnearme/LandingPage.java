@@ -1,16 +1,19 @@
 package com.example.fitnessnearme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LandingPage extends AppCompatActivity {
+    private TextView loggedInUserTextView;
     Button eventsButton;
     Button myGymButton;
     Button trysomethingnew;
@@ -24,6 +27,14 @@ public class LandingPage extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_landing_page);
+        loggedInUserTextView = findViewById(R.id.usernameTextView);
+
+        // Retrieve the stored username (email) from shared preferences
+        SharedPreferences preferences = getSharedPreferences(com.example.fitnessnearme.Constants.PREFERENCE_NAME, MODE_PRIVATE);
+        String loggedInUsername = preferences.getString(com.example.fitnessnearme.Constants.KEY_USERNAME, "");
+
+        // Update the TextView with the logged-in username
+        loggedInUserTextView.setText("USER: " + loggedInUsername);
 
         eventsButton = findViewById(R.id.eventsButton);
         eventsButton.setOnClickListener(new View.OnClickListener() {

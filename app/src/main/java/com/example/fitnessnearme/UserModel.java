@@ -3,6 +3,8 @@ package com.example.fitnessnearme;
 import com.google.gson.annotations.SerializedName;
 
 public class UserModel {
+    @SerializedName("username")
+    private String username;
     @SerializedName("first_name")
     private String firstName;
 
@@ -22,5 +24,9 @@ public class UserModel {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

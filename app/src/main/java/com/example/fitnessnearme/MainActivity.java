@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputEmail;
     private  Button buttonLogin;
     private EditText inputPassword;
-
+    private TextView  forgotpassword;
     private Button register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         register = findViewById(R.id.register);
 
+        forgotpassword=findViewById(R.id.forgetPassword);
 
         inputEmail = findViewById(R.id.email);
 
@@ -75,12 +76,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the registration activity
+                Intent intent = new Intent(MainActivity.this, forgetpassword.class);
+                startActivity(intent);
+            }
+        });
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (inputEmail.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "Please Enter Email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please Enter Username", Toast.LENGTH_SHORT).show();
                 }
                  else if (inputPassword.getText().toString().equals("")) {
                     Toast.makeText(MainActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
@@ -122,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
                         editor.putBoolean(com.example.fitnessnearme.Constants.KEY_ISE_LOGGED_IN, true);
                         editor.putString(com.example.fitnessnearme.Constants.KEY_USERNAME, responseBody.getUserDetailObject().getUserDetails().get(0).getFirstName() + " " + responseBody.getUserDetailObject().getUserDetails().get(0).getLastName());
 
-                        editor.putString(Constants.KEY_EMAIL, responseBody.getUserDetailObject().getUserDetails().get(0).getEmail());
+                        editor.putString(Constants.KEY_USERNAME, responseBody.getUserDetailObject().getUserDetails().get(0).getUsername());
+
+
                         editor.apply();
                         Toast.makeText(MainActivity.this, responseBody.getMessage(), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), LandingPage.class));

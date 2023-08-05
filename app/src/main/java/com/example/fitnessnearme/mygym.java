@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -32,16 +35,39 @@ public class mygym extends AppCompatActivity {
         // Setup the LineChart
         LineChart lineChart = findViewById(R.id.line_chart);
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 1));
-        entries.add(new Entry(1, 4));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 6));
-        entries.add(new Entry(4, 8));
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
+        entries.add(new Entry(182, 84));  // Height: 182, Weight: 84
+        entries.add(new Entry(182, 85));  // Height: 182, Weight: 85
+        entries.add(new Entry(182, 83));  // Height: 182, Weight: 83
+        entries.add(new Entry(182, 81));  // Height: 182, Weight: 81
+        entries.add(new Entry(182, 79));  // Height: 182, Weight: 79
+        entries.add(new Entry(182, 78));  // Height: 182, Weight: 78
+        entries.add(new Entry(182, 76));  // Height: 182, Weight: 76
+
+        LineDataSet dataSet = new LineDataSet(entries, "Weight Change Over Height");
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
+
         LineData lineData = new LineData(dataSets);
         lineChart.setData(lineData);
+
+        // Customize the X-axis
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) value);  // Display height as integer
+            }
+        });
+
+        // Customize the Y-axis
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        yAxisLeft.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) value);  // Display weight as integer
+            }
+        });
+
         lineChart.invalidate();
 
         // Setup the ImageViews
@@ -49,6 +75,8 @@ public class mygym extends AppCompatActivity {
         twitterIcon = findViewById(R.id.twitterIcon);
         instagramIcon = findViewById(R.id.instagramIcon);
     }
+
+
 
     public void onFacebookIconClicked(View view) {
         String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";

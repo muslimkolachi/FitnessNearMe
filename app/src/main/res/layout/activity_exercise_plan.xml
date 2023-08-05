@@ -5,7 +5,25 @@
     android:background="@color/logo"
     >
 
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-6dp"
+        android:layout_marginEnd="79dp"
+        android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/logoImageView"
         android:id="@+id/exerciseRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
