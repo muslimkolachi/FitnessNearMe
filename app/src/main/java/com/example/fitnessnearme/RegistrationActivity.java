@@ -60,7 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 
                 int parsedHeight = Integer.parseInt(height);
-                int parsedWeight = Integer.parseInt(weight);
+                float parsedWeight = Float.parseFloat(weight);
 
                 // Send user data to the server
                 registerUser(username, email, parsedHeight, parsedWeight, password);
@@ -68,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(final String username, final String email, final int height, final int weight, final String password) {
+    private void registerUser(final String username, final String email, final int height, final float weight, final String password) {
         // Replace "https://example.com/registration.php" with the actual URL of your PHP script
         String url = "https://fitnessnearmee.000webhostapp.com/signup.php";
 

@@ -56,13 +56,13 @@
         android:textColor="@android:color/white"/>
     <EditText
         android:id="@+id/weight"
-        android:maxLength="3"
+        android:maxLength="6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/email"
         android:layout_marginTop="16dp"
         android:hint="Current Weight"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:textColorHint="@color/white"
         android:textColor="@android:color/white"/>
     <EditText
