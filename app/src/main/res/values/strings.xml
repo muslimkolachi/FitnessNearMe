@@ -13,7 +13,7 @@
     <string name="sort_by_title">Sort by Title</string>
     <string name="title_activity_maps">MapsActivity</string>
 
-     <string name="api">AIzaSyCOsuwVaLRN4vmAd1MMdIYol2_GGlhrpfA</string>
+    <string name="api">AIzaSyCOsuwVaLRN4vmAd1MMdIYol2_GGlhrpfA</string>
     <string name="show_my_location">Show My Location</string>
->
+    >
 </resources>

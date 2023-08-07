@@ -103,7 +103,7 @@ public class mygym extends AppCompatActivity {
     }
 
     public void onExercisePlanClicked(View view) {
-        Intent intent = new Intent(this, ExercisePlanActivity.class);
+        Intent intent = new Intent(this, WorkoutActivity.class);
         startActivity(intent);
     }
 }

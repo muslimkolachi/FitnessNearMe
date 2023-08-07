@@ -1,5 +1,5 @@
 package com.example.fitnessnearme;
-
+import com.bumptech.glide.Glide;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long SPLASH_DELAY = 2600; // 6 seconds
+    private static final long SPLASH_DELAY = 3000; // 6 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,4 +28,8 @@ public class Exercise {
     public String getRepRange() {
         return repRange;
     }
+
+    public long getDuration() {
+        return 0;
+    }
 }

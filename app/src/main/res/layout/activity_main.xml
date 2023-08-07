@@ -8,6 +8,7 @@
     android:background="#E3F2FD"
     tools:context=".MainActivity">
 
+
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
@@ -87,6 +88,17 @@
             android:layout_marginTop="24dp"
             android:animateLayoutChanges="true"
             android:alpha="100" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/test"
+            android:layout_width="179dp"
+            android:layout_height="54dp"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:text="testing the newly implemented"
+            android:textColor="@color/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 

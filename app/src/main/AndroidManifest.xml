@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessNearMe"
         tools:targetApi="31">
-
+        <activity
+            android:name=".StepCounterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".workoutR"
+            android:exported="false" />
+        <activity
+            android:name=".WorkoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QRScan"
+            android:exported="false" />
+        <activity
+            android:name=".giftesting"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
