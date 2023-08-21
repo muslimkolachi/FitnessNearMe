@@ -22,17 +22,6 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
 
-    <Spinner
-        android:id="@+id/sortSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,13 +44,14 @@
         android:id="@+id/sortButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+
         android:layout_alignParentEnd="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="16dp"
         android:onClick="onSortButtonClick"
+        android:layout_below="@id/logoImageView"
         android:textColor="@color/logo"
         android:backgroundTint="@color/cardview_dark_background"
         android:text="Sort" />

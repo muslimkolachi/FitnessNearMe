@@ -1,25 +1,51 @@
 package com.example.fitnessnearme;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.zxing.Result;
+import androidx.core.app.ActivityCompat;
+
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
-
 import java.util.List;
 
+import android.Manifest;
 public class QRScan extends AppCompatActivity {
 
     private DecoratedBarcodeView barcodeView;
+    private static final int CAMERA_PERMISSION_REQUEST = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrscan);
+
+        // Check for camera permission before initializing the barcode scanner
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            initializeBarcodeScanner();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+        }
+
+        Button scanButton = findViewById(R.id.scanButton);
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (barcodeView != null) {
+                    barcodeView.decodeSingle(callback);
+                }
+            }
+        });
+    }
+
+    private void initializeBarcodeScanner() {
         barcodeView = findViewById(R.id.barcodeScanner);
         barcodeView.decodeContinuous(callback);
     }
@@ -28,7 +54,9 @@ public class QRScan extends AppCompatActivity {
         @Override
         public void barcodeResult(BarcodeResult result) {
             if (result.getText() != null) {
-                navigateToActivityBasedOnQRContent(result.getText());
+                if (result.getText().equalsIgnoreCase("pushups")) {
+                    navigateToExerciseActivity();
+                }
             }
         }
 
@@ -38,23 +66,37 @@ public class QRScan extends AppCompatActivity {
         }
     };
 
-    private void navigateToActivityBasedOnQRContent(String qrContent) {
-        // Customize this logic to navigate to a specific activity based on the QR content
+    private void navigateToExerciseActivity() {
         Intent intent = new Intent(this, ExercisePlanActivity.class);
-        intent.putExtra("qrContent", qrContent);
         startActivity(intent);
-        finish();
+        finish(); // Optional: Finish this QRScan activity after navigation
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        barcodeView.resume();
+        if (barcodeView != null) {
+            barcodeView.resume();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        barcodeView.pause();
+        if (barcodeView != null) {
+            barcodeView.pause();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                initializeBarcodeScanner();
+            } else {
+                // Handle camera permission denied
+            }
+        }
     }
 }

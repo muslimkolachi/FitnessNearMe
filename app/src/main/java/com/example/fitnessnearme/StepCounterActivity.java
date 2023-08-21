@@ -9,7 +9,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,22 +20,19 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
     private Sensor accelerometer;
 
     private TextView stepCountTextView;
-    private TextView totalStepCountTextView; // New TextView for total steps
-    private Button startButton;
-    private Button stopButton;
+    private TextView totalStepCountTextView;
     private Button newac;
 
     private int stepCount = 0;
-    private int totalStepCount = 0; // Total steps variable
-    private boolean counting = false;
+    private int totalStepCount = 0;
+    private boolean counting = true;
     private boolean canDetectStep = true;
 
-    private float accelerationThreshold = 10.0f; // Adjust this value for your needs
-    private int cooldownMillis = 1000; // Cooldown period in milliseconds
+    private float accelerationThreshold = 10.0f;
+    private int cooldownMillis = 1000;
 
     private SharedPreferences sharedPreferences;
-    private static final String PREF_STEP_COUNT = "step_count";
-    private static final String PREF_TOTAL_STEP_COUNT = "total_step_count"; // Shared preferences key for total step count
+    private static final String PREF_TOTAL_STEP_COUNT = "total_step_count";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,31 +40,24 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_counter);
-        newac=findViewById(R.id.newac);
+        newac = findViewById(R.id.newac);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         stepCountTextView = findViewById(R.id.stepCountTextView);
-        totalStepCountTextView = findViewById(R.id.totalStepCountTextView); // Initialize the total steps TextView
-        startButton = findViewById(R.id.startButton);
-        stopButton = findViewById(R.id.stopButton);
+        totalStepCountTextView = findViewById(R.id.totalStepCountTextView);
 
         sharedPreferences = getSharedPreferences("StepCounterPrefs", MODE_PRIVATE);
 
-        // Load and display total steps from SharedPreferences
         totalStepCount = sharedPreferences.getInt(PREF_TOTAL_STEP_COUNT, 0);
         totalStepCountTextView.setText("Total Steps: " + totalStepCount);
 
-        startButton.setOnClickListener(view -> startCounting());
-        stopButton.setOnClickListener(view -> stopCounting());
-        newac.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(StepCounterActivity.this,WorkoutActivity.class);
-                startActivity(intent);
-            }
+        newac.setOnClickListener(view -> {
+            Intent intent = new Intent(StepCounterActivity.this, WorkoutActivity.class);
+            startActivity(intent);
         });
 
+        startCounting();
     }
 
     @Override
@@ -83,6 +72,11 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+
+        // Save total step count to SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(PREF_TOTAL_STEP_COUNT, totalStepCount);
+        editor.apply();
     }
 
     private void startCounting() {
@@ -90,17 +84,6 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
         stepCount = 0;
         canDetectStep = true;
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    private void stopCounting() {
-        counting = false;
-
-        // Update and save total steps to SharedPreferences
-        totalStepCount += stepCount;
-        totalStepCountTextView.setText("Total Steps: " + totalStepCount);
-        sharedPreferences.edit().putInt(PREF_TOTAL_STEP_COUNT, totalStepCount).apply();
-
-        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -116,8 +99,11 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
             stepCountTextView.setText("Step Count: " + stepCount);
             canDetectStep = false;
 
-            // Set a delay before enabling step detection again
             new Handler().postDelayed(() -> canDetectStep = true, cooldownMillis);
+
+            // Update total steps as step count increases
+            totalStepCountTextView.setText("Total Steps: " + (totalStepCount + stepCount));
+            totalStepCount += stepCount;
         }
     }
 

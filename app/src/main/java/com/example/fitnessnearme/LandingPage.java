@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LandingPage extends AppCompatActivity {
+    private static final String TAG = "LandingPage"; // Log tag for debugging
     private TextView loggedInUserTextView;
     Button eventsButton;
     Button myGymButton;
@@ -30,8 +32,11 @@ public class LandingPage extends AppCompatActivity {
         loggedInUserTextView = findViewById(R.id.usernameTextView);
 
         // Retrieve the stored username (email) from shared preferences
-        SharedPreferences preferences = getSharedPreferences(com.example.fitnessnearme.Constants.PREFERENCE_NAME, MODE_PRIVATE);
-        String loggedInUsername = preferences.getString(com.example.fitnessnearme.Constants.KEY_USERNAME, "");
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+        String loggedInUsername = preferences.getString(Constants.KEY_USERNAME, "");
+
+        // Log the fetched username for debugging
+        Log.d(TAG, "Fetched username from SharedPreferences: " + loggedInUsername);
 
         // Update the TextView with the logged-in username
         loggedInUserTextView.setText("USER: " + loggedInUsername);
@@ -61,7 +66,7 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the new activity
-                Intent intent = new Intent(LandingPage.this, trysomethingnew.class);
+                Intent intent = new Intent(LandingPage.this, GraphActivity.class);
                 startActivity(intent);
             }
         });

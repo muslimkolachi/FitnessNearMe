@@ -1,6 +1,6 @@
 package com.example.fitnessnearme;
 
-
+import com.example.fitnessnearme.UserDetailModel;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponseModel {

@@ -5,5 +5,7 @@
     <color name="orange">#FFA500</color>
     <color name="gray">#808080</color>
     <color name="logo">#f0a659</color>
-
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.fitnessnearme;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,11 +22,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private EditText inputEmail;
-    private  Button buttonLogin;
+    private Button buttonLogin;
     private EditText inputPassword;
-    private TextView  forgotpassword;
+    private TextView forgotPassword;
     private Button register;
     private Button testing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,38 +36,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         register = findViewById(R.id.register);
-
-        forgotpassword=findViewById(R.id.forgetPassword);
-
+        forgotPassword = findViewById(R.id.forgetPassword);
         inputEmail = findViewById(R.id.email);
-
         inputPassword = findViewById(R.id.pass);
-
         buttonLogin = findViewById(R.id.login);
-
-        testing=findViewById(R.id.test);
-
+        testing = findViewById(R.id.test);
 
         testing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, StepCounterActivity.class);
+                // Fetch the user's weight and height from SharedPreferences
+                SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+                float userWeight = preferences.getFloat(Constants.KEY_USER_WEIGHT, 0.0f);
+                float userHeight = preferences.getFloat(Constants.KEY_USER_HEIGHT, 0.0f);
+
+                Intent intent = new Intent(MainActivity.this, GraphActivity.class);
+                intent.putExtra("userWeight", userWeight);
+                intent.putExtra("userHeight", userHeight);
                 startActivity(intent);
             }
         });
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the registration activity
                 Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
                 startActivity(intent);
             }
         });
 
-        forgotpassword.setOnClickListener(new View.OnClickListener() {
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the registration activity
                 Intent intent = new Intent(MainActivity.this, forgetpassword.class);
                 startActivity(intent);
             }
@@ -76,18 +76,15 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inputEmail.getText().toString().equals("")) {
+                if (inputEmail.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please Enter Username", Toast.LENGTH_SHORT).show();
-                }
-                 else if (inputPassword.getText().toString().equals("")) {
+                } else if (inputPassword.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
                     login();
                 }
             }
         });
-
-
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -98,34 +95,43 @@ public class MainActivity extends AppCompatActivity {
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-
     private void login() {
-
         final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setTitle("Please wait");
         progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
         NetworkService networkService = NetworkClient.getClient().create(NetworkService.class);
         Call<LoginResponseModel> login = networkService.login(inputEmail.getText().toString(), inputPassword.getText().toString());
         login.enqueue(new Callback<LoginResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponseModel> call, @NonNull Response<LoginResponseModel> response) {
                 LoginResponseModel responseBody = response.body();
+
                 if (responseBody != null) {
                     if (responseBody.getSuccess().equals("1")) {
-                        SharedPreferences preferences = getSharedPreferences(com.example.fitnessnearme.Constants.PREFERENCE_NAME, MODE_PRIVATE);
+                        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putBoolean(com.example.fitnessnearme.Constants.KEY_ISE_LOGGED_IN, true);
-                        editor.putString(com.example.fitnessnearme.Constants.KEY_USERNAME, responseBody.getUserDetailObject().getUserDetails().get(0).getFirstName() + " " + responseBody.getUserDetailObject().getUserDetails().get(0).getLastName());
-
-                        editor.putString(Constants.KEY_USERNAME, responseBody.getUserDetailObject().getUserDetails().get(0).getUsername());
+                        editor.putBoolean(Constants.KEY_ISE_LOGGED_IN, true);
 
 
-                        editor.apply();
-                        Toast.makeText(MainActivity.this, responseBody.getMessage(), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), LandingPage.class));
-                        finish();
+                        UserDetailModel userDetail = responseBody.getUserDetailObject();
+                        if (userDetail != null && userDetail.getUserDetails() != null && !userDetail.getUserDetails().isEmpty()) {
+                            UserModel userDetails = userDetail.getUserDetails().get(0);
+                            editor.putFloat(Constants.KEY_USER_WEIGHT, userDetails.getWeight());
+                            editor.putFloat(Constants.KEY_USER_HEIGHT, userDetails.getHeight());
+
+                            // Storing the FirstName and LastName in SharedPreferences
+                            editor.putString(Constants.KEY_USERNAME, userDetails.getFirstName() + " " + userDetails.getLastName());
+                            editor.apply();
+
+                            Toast.makeText(MainActivity.this, responseBody.getMessage(), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), LandingPage.class));
+                            finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, "User details not available.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(MainActivity.this, responseBody.getMessage(), Toast.LENGTH_SHORT).show();
                     }
