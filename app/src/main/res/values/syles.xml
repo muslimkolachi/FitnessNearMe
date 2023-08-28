@@ -5,6 +5,6 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/a123</item>
+        <item name="android:windowBackground">@drawable/desktop_wallpaper_motivational_fitness_life_phone_v3_apparel_mobile_gym_thumbnail</item>
     </style>
 </resources>

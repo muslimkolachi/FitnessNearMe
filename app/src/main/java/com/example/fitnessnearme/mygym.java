@@ -1,22 +1,24 @@
 package com.example.fitnessnearme;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import com.github.mikephil.charting.charts.LineChart;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,9 @@ public class mygym extends AppCompatActivity {
     ImageView facebookIcon;
     ImageView twitterIcon;
     ImageView instagramIcon;
+    CardView bmiCard;
+    TextView bmiTextView;
+    TextView bmiCategoryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,51 +37,60 @@ public class mygym extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mygym);
 
-        // Setup the LineChart
-        LineChart lineChart = findViewById(R.id.line_chart);
-        ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(182, 84));  // Height: 182, Weight: 84
-        entries.add(new Entry(182, 85));  // Height: 182, Weight: 85
-        entries.add(new Entry(182, 83));  // Height: 182, Weight: 83
-        entries.add(new Entry(182, 81));  // Height: 182, Weight: 81
-        entries.add(new Entry(182, 79));  // Height: 182, Weight: 79
-        entries.add(new Entry(182, 78));  // Height: 182, Weight: 78
-        entries.add(new Entry(182, 76));  // Height: 182, Weight: 76
+        BarChart barChart = findViewById(R.id.bar_chart);
 
-        LineDataSet dataSet = new LineDataSet(entries, "Weight Change Over Height");
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataSet);
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+        float userWeight = preferences.getFloat(Constants.KEY_USER_WEIGHT, 0.0f);
+        float userHeight = preferences.getFloat(Constants.KEY_USER_HEIGHT, 0.0f);
 
-        LineData lineData = new LineData(dataSets);
-        lineChart.setData(lineData);
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(0, userWeight));
+        barEntries.add(new BarEntry(1, userHeight));
 
-        // Customize the X-axis
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.valueOf((int) value);  // Display height as integer
-            }
-        });
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Weight and Height");
+        barDataSet.setColors(new int[]{Color.BLUE, Color.GREEN});
+        barDataSet.setValueTextSize(12f);
 
-        // Customize the Y-axis
-        YAxis yAxisLeft = lineChart.getAxisLeft();
+        BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Weight", "Height"}));
+
+        YAxis yAxisLeft = barChart.getAxisLeft();
         yAxisLeft.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return String.valueOf((int) value);  // Display weight as integer
+                return String.valueOf((int) value);
             }
         });
 
-        lineChart.invalidate();
+        barChart.invalidate();
 
-        // Setup the ImageViews
         facebookIcon = findViewById(R.id.facebookIcon);
         twitterIcon = findViewById(R.id.twitterIcon);
         instagramIcon = findViewById(R.id.instagramIcon);
+
+        bmiCard = findViewById(R.id.bmiCard);
+        bmiTextView = findViewById(R.id.bmiTextView);
+        bmiCategoryTextView = findViewById(R.id.bmiCategoryTextView);
+
+        float userHeightMeters = userHeight / 100.0f;
+        float bmi = userWeight / (userHeightMeters * userHeightMeters);
+
+        bmiTextView.setText(String.format("%.2f", bmi));
+
+        if (bmi < 18.5) {
+            bmiCategoryTextView.setText("Underweight");
+            bmiCard.setCardBackgroundColor(getResources().getColor(R.color.yellow));
+        } else if (bmi >= 18.5 && bmi < 25) {
+            bmiCategoryTextView.setText("Healthy");
+            bmiCard.setCardBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+            bmiCategoryTextView.setText("Overweight");
+            bmiCard.setCardBackgroundColor(getResources().getColor(R.color.red));
+        }
     }
-
-
 
     public void onFacebookIconClicked(View view) {
         String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";
@@ -97,8 +111,7 @@ public class mygym extends AppCompatActivity {
     }
 
     public void onAuthenticatorClicked(View view) {
-        // Open the camera here
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent intent = new Intent(this, QRScan.class);
         startActivity(intent);
     }
 

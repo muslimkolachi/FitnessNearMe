@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputPassword;
     private TextView forgotPassword;
     private Button register;
-    private Button testing;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +40,6 @@ public class MainActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.pass);
         buttonLogin = findViewById(R.id.login);
-        testing = findViewById(R.id.test);
-
-        testing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Fetch the user's weight and height from SharedPreferences
-                SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
-                float userWeight = preferences.getFloat(Constants.KEY_USER_WEIGHT, 0.0f);
-                float userHeight = preferences.getFloat(Constants.KEY_USER_HEIGHT, 0.0f);
-
-                Intent intent = new Intent(MainActivity.this, GraphActivity.class);
-                intent.putExtra("userWeight", userWeight);
-                intent.putExtra("userHeight", userHeight);
-                startActivity(intent);
-            }
-        });
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

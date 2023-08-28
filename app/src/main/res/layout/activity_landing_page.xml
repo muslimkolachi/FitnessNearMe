@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="240sp"
+        android:layout_height="240sp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
         android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
@@ -47,49 +47,52 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/logo"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"/>
 
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="88dp"
         android:layout_below="@id/logoImageView"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="50sp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/eventsButton"
             android:layout_width="0dp"
-            android:textColor="@color/logo"
-            android:layout_height="wrap_content"
+            android:layout_height="67dp"
             android:layout_weight="1"
-            android:text="Events"
             android:backgroundTint="@color/cardview_dark_background"
-            />
+            android:text="Events"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/logo" />
 
         <Button
             android:id="@+id/myGymButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_weight="1"
-            android:textColor="@color/logo"
+            android:backgroundTint="@color/cardview_dark_background"
             android:text="My Gym"
-            android:backgroundTint="@color/cardview_dark_background"/>
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/logo" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/trySomethingNewButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="70dp"
         android:layout_below="@id/buttonLayout"
-        android:layout_marginTop="69dp"
-        android:text="Try Something New"
-        android:textColor="@color/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
         android:backgroundTint="@color/cardview_dark_background"
-        />
+        android:text="Try Something New"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
 
     <LinearLayout
         android:id="@+id/socialMediaLayout"
@@ -99,35 +102,38 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:gravity="center">
-
         <ImageView
             android:id="@+id/facebookIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40sp"
+            android:layout_height="80sp"
             android:src="@drawable/iconmonstr_facebook_messenger_2"
             android:clickable="true"
             android:onClick="onFacebookIconClicked" />
 
         <ImageView
             android:id="@+id/twitterIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40sp"
+            android:layout_height="80sp"
             android:layout_marginStart="16dp"
             android:src="@drawable/iconmonstr_twitter_4"
             android:clickable="true"
             android:onClick="onTwitterIconClicked" />
 
+
         <ImageView
             android:id="@+id/instagramIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40sp"
+            android:layout_height="80sp"
             android:layout_marginStart="16dp"
             android:src="@drawable/iconmonstr_instagram_14"
             android:clickable="true"
             android:onClick="onInstagramIconClicked" />
 
+
         <!-- Add more social media icons as needed -->
 
     </LinearLayout>
+
+
 
 </RelativeLayout>
