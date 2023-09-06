@@ -94,6 +94,21 @@
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textColor="@color/logo" />
 
+    <TextView
+        android:id="@+id/step"
+        android:layout_width="162dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/trySomethingNewButton"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:layout_marginTop="21dp"
+        android:layout_marginRight="36dp"
+        android:autoSizeTextType="uniform"
+        android:clickable="true"
+        android:text="GOING FOR A RUN?"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
+
     <LinearLayout
         android:id="@+id/socialMediaLayout"
         android:layout_width="wrap_content"

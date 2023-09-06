@@ -11,16 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class mygym extends AppCompatActivity {
     ImageView facebookIcon;
@@ -37,27 +40,28 @@ public class mygym extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mygym);
 
-        BarChart barChart = findViewById(R.id.bar_chart);
+        LineChart lineChart = findViewById(R.id.line_chart);
 
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
-        float userWeight = preferences.getFloat(Constants.KEY_USER_WEIGHT, 0.0f);
-        float userHeight = preferences.getFloat(Constants.KEY_USER_HEIGHT, 0.0f);
+        // Generate random hard-coded data for calories burned on each day of the week
+        List<Entry> entries = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 7; i++) {
+            entries.add(new Entry(i, random.nextInt(500) + 1000)); // Random calories between 1000 and 1500
+        }
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(0, userWeight));
-        barEntries.add(new BarEntry(1, userHeight));
+        LineDataSet dataSet = new LineDataSet(entries, "Calories Burned");
+        dataSet.setColor(Color.RED);
+        dataSet.setLineWidth(2f);
+        dataSet.setValueTextSize(16f);
+        dataSet.setCircleRadius(5f);
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Weight and Height");
-        barDataSet.setColors(new int[]{Color.BLUE, Color.GREEN});
-        barDataSet.setValueTextSize(12f);
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
 
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Weight", "Height"}));
-
-        YAxis yAxisLeft = barChart.getAxisLeft();
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}));
+        dataSet.setValueTextSize(16f);
+        YAxis yAxisLeft = lineChart.getAxisLeft();
         yAxisLeft.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -65,7 +69,10 @@ public class mygym extends AppCompatActivity {
             }
         });
 
-        barChart.invalidate();
+        Legend legend = lineChart.getLegend();
+        legend.setEnabled(false);
+
+        lineChart.invalidate();
 
         facebookIcon = findViewById(R.id.facebookIcon);
         twitterIcon = findViewById(R.id.twitterIcon);
@@ -75,6 +82,9 @@ public class mygym extends AppCompatActivity {
         bmiTextView = findViewById(R.id.bmiTextView);
         bmiCategoryTextView = findViewById(R.id.bmiCategoryTextView);
 
+        // Sample BMI calculation
+        float userWeight = 70.0f; // Replace with actual user weight
+        float userHeight = 170.0f; // Replace with actual user height
         float userHeightMeters = userHeight / 100.0f;
         float bmi = userWeight / (userHeightMeters * userHeightMeters);
 
@@ -93,30 +103,34 @@ public class mygym extends AppCompatActivity {
     }
 
     public void onFacebookIconClicked(View view) {
-        String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";
+        String facebookUrl = "https://www.facebook.com"; // Replace with your Facebook URL
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
         startActivity(intent);
     }
 
     public void onTwitterIconClicked(View view) {
-        String twitterUrl = "https://www.youtube.com/watch?v=5upQGvf22qA";
+        String twitterUrl = "https://www.twitter.com"; // Replace with your Twitter URL
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
         startActivity(intent);
     }
 
     public void onInstagramIconClicked(View view) {
-        String instagramUrl = "https://www.youtube.com/watch?v=o6jZ7IFt6mQ";
+        String instagramUrl = "https://www.instagram.com"; // Replace with your Instagram URL
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
         startActivity(intent);
     }
 
     public void onAuthenticatorClicked(View view) {
-        Intent intent = new Intent(this, QRScan.class);
+        Intent intent = new Intent(this, QRScan.class); // Replace with your QRScan activity
         startActivity(intent);
     }
 
     public void onExercisePlanClicked(View view) {
-        Intent intent = new Intent(this, WorkoutActivity.class);
+        Intent intent = new Intent(this, WorkoutActivity.class); // Replace with your WorkoutActivity
+        startActivity(intent);
+    }
+    public void onMealPlanClicked(View view) {
+        Intent intent = new Intent(this, ExercisePlanActivity.class); // Replace with your WorkoutActivity
         startActivity(intent);
     }
 }

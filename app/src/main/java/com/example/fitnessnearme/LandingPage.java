@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.anastr.speedviewlib.ProgressiveGauge;
+import com.github.anastr.speedviewlib.SpeedView;
+
 public class LandingPage extends AppCompatActivity {
     private static final String TAG = "LandingPage"; // Log tag for debugging
     private TextView loggedInUserTextView;
@@ -22,6 +25,7 @@ public class LandingPage extends AppCompatActivity {
     ImageView facebookIcon;
     ImageView twitterIcon;
     ImageView instagramIcon;
+    private TextView walk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,14 @@ public class LandingPage extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_landing_page);
         loggedInUserTextView = findViewById(R.id.usernameTextView);
+        walk=findViewById(R.id.step);
+        walk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LandingPage.this, StepCounterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Retrieve the stored username (email) from shared preferences
         SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
@@ -66,7 +78,7 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the new activity
-                Intent intent = new Intent(LandingPage.this, GraphActivity.class);
+                Intent intent = new Intent(LandingPage.this, MapsActivity.class);
                 startActivity(intent);
             }
         });

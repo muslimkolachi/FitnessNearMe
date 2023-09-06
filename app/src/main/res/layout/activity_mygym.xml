@@ -11,15 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+
         android:src="@drawable/background" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/bmiCard"
+        android:layout_marginTop="20sp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="#008000"
-        android:layout_below="@id/bar_chart">
+        android:layout_below="@id/line_chart">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,35 +62,35 @@
         android:layout_height="200sp"
         android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_chart"
-        android:layout_width="280sp"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart"
+        android:layout_width="match_parent"
         android:layout_height="200sp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="67sp"
+
+        android:layout_centerInParent="true"
         android:layout_marginTop="109sp"
-        android:layout_marginEnd="-2sp"
-        android:layout_centerVertical="true"
+        android:layout_marginEnd="-2sp"></com.github.mikephil.charting.charts.LineChart>
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bmiCard"
+        android:autoSizeTextType="uniform"
         android:layout_centerHorizontal="true"
-        >
-    </com.github.mikephil.charting.charts.BarChart>
+        android:backgroundTint="@color/cardview_dark_background"
+        android:text="Calories Burned this Week"
+        android:layout_marginTop="12sp"
+        android:textAlignment="center"
+        android:textColor="@color/logo" />
 
     <ImageView
         android:id="@+id/authenticatorImageView"
-        android:layout_width="128dp"
-        android:layout_height="126dp"
-        android:layout_below="@id/exercisePlanImageView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="533dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="72dp"
+        android:layout_width="150dp"
+        android:layout_height="120sp"
+        android:layout_above="@id/authenticatorTextView"
+        android:layout_centerInParent="true"
         android:clickable="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:contentDescription="Authenticator"
         android:onClick="onAuthenticatorClicked"
         android:scaleType="fitXY"
@@ -96,17 +98,9 @@
 
     <ImageView
         android:id="@+id/exercisePlanImageView"
-        android:layout_width="156dp"
-        android:layout_height="118dp"
-        android:layout_below="@id/exercisePlanTextView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="411dp"
-        android:layout_marginEnd="253dp"
-        android:layout_marginBottom="202dp"
+        android:layout_width="150sp"
+        android:layout_height="120sp"
+        android:layout_below="@id/bmiCard"
         android:clickable="true"
         android:contentDescription="Exercise Plan"
         android:onClick="onExercisePlanClicked"
@@ -114,83 +108,51 @@
 
     <ImageView
         android:id="@+id/exercisePlanImageView2"
-        android:layout_width="130dp"
-        android:layout_height="114dp"
-        android:layout_below="@id/mealPlanTextView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="278dp"
-        android:layout_marginTop="408dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="208dp"
+        android:layout_width="150sp"
+        android:layout_height="120sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/bmiCard"
         android:clickable="true"
-        android:contentDescription="Exercise Plan"
-        android:onClick="onExercisePlanClicked"
+        android:contentDescription="Meal Plan"
+        android:onClick="onMealPlanClicked"
         android:src="@drawable/march_meal_prep" />
 
     <TextView
         android:id="@+id/authenticatorTextView"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/socialMediaLayout"
-        android:layout_below="@id/authenticatorImageView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="137dp"
-        android:layout_marginTop="658dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="17dp"
+        android:autoSizeTextType="uniform"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/cardview_dark_background"
         android:text="Need help?\n SCAN A MACHINE"
         android:textAlignment="center"
         android:textColor="@color/logo" />
 
+
     <TextView
         android:id="@+id/exercisePlanTextView"
-        android:layout_width="158dp"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/exercisePlanImageView"
+        android:gravity="center"
+        android:autoSizeTextType="uniform"
         android:backgroundTint="@color/cardview_dark_background"
         android:text="Exercise Plan"
-        android:layout_below="@id/bmiCard"
         android:textAlignment="center"
-        android:textColor="@color/logo" />
 
+        android:textColor="@color/logo" />
 
     <TextView
         android:id="@+id/mealPlanTextView"
-        android:layout_below="@id/bmiCard"
-        android:layout_width="149dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="262dp"
-        android:layout_marginTop="411dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="291dp"
+        android:layout_width="110sp"
+        android:layout_height="30sp"
+        android:layout_below="@id/exercisePlanImageView2"
+        android:layout_alignParentRight="true"
+        android:autoSizeTextType="uniform"
         android:backgroundTint="@color/cardview_dark_background"
         android:text="Meal Plan"
-        android:textAlignment="center"
         android:textColor="@color/logo" />
-
-    <ImageView
-        android:id="@+id/mealplanImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/exercisePlanImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:contentDescription="Meal Plan"
-        android:onClick="onMealPlanClicked"
-        android:src="@drawable/march_meal_prep"
-        />
-
     <LinearLayout
         android:id="@+id/socialMediaLayout"
         android:layout_width="wrap_content"

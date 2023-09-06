@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +20,8 @@ public class WorkoutActivity extends AppCompatActivity {
     private Button skipButton;
     private boolean isWorkoutRunning;
     private CountDownTimer timer;
-    private long timeRemainingInMillis; // New variable to store remaining time
-
-    private long startTimeMillis; // Variable to store the start time of the timer
-
+    private long timeRemainingInMillis;
+    private long startTimeMillis;
     private ImageView exerciseImageView;
     private TextView exerciseNameTextView;
     private TextView timerTextView;
@@ -31,6 +30,8 @@ public class WorkoutActivity extends AppCompatActivity {
     private Button resumeButton;
     private Button nextButton;
     private Button finishButton;
+    private RelativeLayout statusBar;
+    private TextView statusTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,25 @@ public class WorkoutActivity extends AppCompatActivity {
         finishButton = findViewById(R.id.finishButton);
         skipButton = findViewById(R.id.skipButton);
 
+        statusBar = findViewById(R.id.statusBar);
+        statusTextView = findViewById(R.id.statusTextView);
+
         exerciseList = new ArrayList<>();
         exerciseList.add(new FitnessExercise("Exercise 1", "Description 1", R.drawable.exercise1, "12 reps"));
         exerciseList.add(new FitnessExercise("Exercise 2", "Description 2", R.drawable.exercise2, "15 reps"));
-        // Add more exercises as needed
+        exerciseList.add(new FitnessExercise("Exercise 3", "Description 3", R.drawable.exercise3, "10 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 4", "Description 4", R.drawable.ezgif_com_crop_5_, "20 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 5", "Description 5", R.drawable.ezgif_com_crop_6_, "18 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 6", "Description 6", R.drawable.ezgif_com_crop_10_, "15 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 7", "Description 7", R.drawable.ezgif_com_crop_9_, "12 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 8", "Description 8", R.drawable.ezgif_com_crop_8_, "16 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 9", "Description 9", R.drawable.ezgif_com_crop_7_, "14 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 10", "Description 10", R.drawable.ezgif_com_crop_12_, "15 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 11", "Description 11", R.drawable.ezgif_com_crop_22_, "12 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 12", "Description 12", R.drawable.ezgif_com_crop_20_, "13 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 13", "Description 13", R.drawable.ezgif_com_crop_24_, "10 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 14", "Description 14", R.drawable.ezgif_com_crop_25_, "15 reps"));
+        exerciseList.add(new FitnessExercise("Exercise 15", "Description 15", R.drawable.ezgif_com_crop_26_, "20 reps"));
 
         currentExerciseIndex = 0;
         isWorkoutRunning = false;
@@ -63,11 +79,14 @@ public class WorkoutActivity extends AppCompatActivity {
                 skipExercise();
             }
         });
+
         // Set click listeners for buttons
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startWorkout();
+                startButton.setVisibility(View.GONE);
+                statusBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -99,7 +118,6 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void startWorkout() {
         isWorkoutRunning = true;
@@ -152,7 +170,7 @@ public class WorkoutActivity extends AppCompatActivity {
             timer.cancel();
             isWorkoutRunning = false;
             // Implement UI update for finished workout
-            timerTextView.setText("Workout Done");
+            timerTextView.setText("Workout Done STATS UPDATED");
         }
     }
 
@@ -177,9 +195,13 @@ public class WorkoutActivity extends AppCompatActivity {
                 }
             }.start();
             startTimeMillis = System.currentTimeMillis(); // Store the start time
+            // Update the status text
+            statusTextView.setText("Exercise " + (currentExerciseIndex + 1) + " of " + exerciseList.size());
         } else {
             isWorkoutRunning = false;
             timerTextView.setText("Workout Done");
+            // Update the status text when the workout is finished
+            statusTextView.setText("Workout Finished");
         }
     }
 
