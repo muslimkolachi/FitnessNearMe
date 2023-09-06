@@ -67,7 +67,7 @@ public class QRScan extends AppCompatActivity {
     };
 
     private void navigateToExerciseActivity() {
-        Intent intent = new Intent(this, ExercisePlanActivity.class);
+        Intent intent = new Intent(this, workoutR.class);
         startActivity(intent);
         finish(); // Optional: Finish this QRScan activity after navigation
     }

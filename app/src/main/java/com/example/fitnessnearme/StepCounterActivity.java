@@ -53,6 +53,8 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
         totalStepCountTextView.setText("Total Steps: " + totalStepCount);
 
         newac.setOnClickListener(view -> {
+            totalStepCount = 0;
+            totalStepCountTextView.setText("Total Steps: " + totalStepCount);
             Intent intent = new Intent(StepCounterActivity.this, WorkoutActivity.class);
             startActivity(intent);
         });
@@ -100,10 +102,6 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
             canDetectStep = false;
 
             new Handler().postDelayed(() -> canDetectStep = true, cooldownMillis);
-
-            // Update total steps as step count increases
-            totalStepCountTextView.setText("Total Steps: " + (totalStepCount + stepCount));
-            totalStepCount += stepCount;
         }
     }
 

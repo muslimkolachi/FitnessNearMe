@@ -45,6 +45,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
+            android:fontFamily="@font/poppins_bold"
             android:maxLines="1"
             android:textColor="@color/logo"
             android:textSize="16sp"
@@ -62,6 +63,7 @@
 
         <Button
             android:id="@+id/eventsButton"
+            android:fontFamily="@font/poppins_bold"
             android:layout_width="0dp"
             android:layout_height="67dp"
             android:layout_weight="1"
@@ -73,6 +75,7 @@
         <Button
             android:id="@+id/myGymButton"
             android:layout_width="0dp"
+            android:fontFamily="@font/poppins_bold"
             android:layout_height="65dp"
             android:layout_weight="1"
             android:backgroundTint="@color/cardview_dark_background"
@@ -84,12 +87,13 @@
 
     <Button
         android:id="@+id/trySomethingNewButton"
-        android:layout_width="212dp"
+        android:layout_width="229dp"
         android:layout_height="70dp"
         android:layout_below="@id/buttonLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:backgroundTint="@color/cardview_dark_background"
+        android:fontFamily="@font/poppins_bold"
         android:text="Try Something New"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textColor="@color/logo" />
@@ -106,6 +110,7 @@
         android:autoSizeTextType="uniform"
         android:clickable="true"
         android:text="GOING FOR A RUN?"
+        android:fontFamily="@font/poppins_bold"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textColor="@color/logo" />
 

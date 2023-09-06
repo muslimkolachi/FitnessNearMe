@@ -43,12 +43,9 @@ public class LandingPage extends AppCompatActivity {
             }
         });
 
-        // Retrieve the stored username (email) from shared preferences
+
         SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
         String loggedInUsername = preferences.getString(Constants.KEY_USERNAME, "");
-
-        // Log the fetched username for debugging
-        Log.d(TAG, "Fetched username from SharedPreferences: " + loggedInUsername);
 
         // Update the TextView with the logged-in username
         loggedInUserTextView.setText("USER: " + loggedInUsername);
@@ -78,7 +75,7 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the new activity
-                Intent intent = new Intent(LandingPage.this, MapsActivity.class);
+                Intent intent = new Intent(LandingPage.this, exerciseregime.class);
                 startActivity(intent);
             }
         });

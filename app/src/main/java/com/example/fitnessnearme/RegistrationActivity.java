@@ -3,6 +3,7 @@ package com.example.fitnessnearme;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -51,14 +53,32 @@ public class RegistrationActivity extends AppCompatActivity {
                 String password = passEditText.getText().toString().trim();
                 String passwordAgain = passwordAgainEditText.getText().toString().trim();
 
-                // Validate input (you may add more validation checks as needed)
-                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()) {
+                // Validate input
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordAgain)) {
                     Toast.makeText(RegistrationActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Validate email format
+                if (!isValidEmail(email)) {
+                    Toast.makeText(RegistrationActivity.this, "Invalid email address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Validate password strength
+                if (!isValidPassword(password)) {
+                    Toast.makeText(RegistrationActivity.this, "Password is weak", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!password.equals(passwordAgain)) {
                     Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if height and weight are empty
+                if (TextUtils.isEmpty(height) || TextUtils.isEmpty(weight)) {
+                    Toast.makeText(RegistrationActivity.this, "Height and weight are required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -69,6 +89,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 registerUser(username, email, parsedHeight, parsedWeight, password);
             }
         });
+    }
+
+    // Helper method to validate email format
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        return Pattern.compile(emailRegex).matcher(email).matches();
+    }
+
+    // Helper method to validate password strength
+    private boolean isValidPassword(String password) {
+        // Modify this regex pattern to match your desired password strength criteria.
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        return Pattern.compile(passwordRegex).matcher(password).matches();
     }
 
     private void registerUser(final String username, final String email, final int height, final float weight, final String password) {

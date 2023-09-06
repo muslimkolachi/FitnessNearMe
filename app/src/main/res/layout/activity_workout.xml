@@ -22,7 +22,6 @@
             android:layout_marginTop="30sp"
             android:contentDescription="Exercise Image"
             android:src="@drawable/testing2" />
-
         <TextView
             android:id="@+id/exerciseNameTextView"
             android:layout_width="wrap_content"
@@ -66,6 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Resume"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:textColor="@color/logo"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:visibility="gone" />

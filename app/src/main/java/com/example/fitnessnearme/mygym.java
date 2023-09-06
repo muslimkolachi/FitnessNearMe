@@ -22,8 +22,6 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class mygym extends AppCompatActivity {
     ImageView facebookIcon;
@@ -42,25 +40,25 @@ public class mygym extends AppCompatActivity {
 
         LineChart lineChart = findViewById(R.id.line_chart);
 
-        // Generate random hard-coded data for calories burned on each day of the week
-        List<Entry> entries = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < 7; i++) {
-            entries.add(new Entry(i, random.nextInt(500) + 1000)); // Random calories between 1000 and 1500
-        }
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+        float userWeight = preferences.getFloat(Constants.KEY_USER_WEIGHT, 0.0f);
+        float userHeight = preferences.getFloat(Constants.KEY_USER_HEIGHT, 0.0f);
 
-        LineDataSet dataSet = new LineDataSet(entries, "Calories Burned");
-        dataSet.setColor(Color.RED);
-        dataSet.setLineWidth(2f);
-        dataSet.setValueTextSize(16f);
-        dataSet.setCircleRadius(5f);
+        ArrayList<Entry> lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(0, userWeight));
+        lineEntries.add(new Entry(1, userHeight));
 
-        LineData lineData = new LineData(dataSet);
+        LineDataSet lineDataSet = new LineDataSet(lineEntries, "Weight and Height");
+        lineDataSet.setColor(Color.BLUE);
+        lineDataSet.setCircleColor(Color.BLUE);
+        lineDataSet.setValueTextSize(12f);
+
+        LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}));
-        dataSet.setValueTextSize(16f);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Weight", "Height"}));
+
         YAxis yAxisLeft = lineChart.getAxisLeft();
         yAxisLeft.setValueFormatter(new ValueFormatter() {
             @Override
@@ -68,6 +66,15 @@ public class mygym extends AppCompatActivity {
                 return String.valueOf((int) value);
             }
         });
+
+        // Customize chart appearance
+        lineChart.getDescription().setEnabled(false);
+        lineChart.setDrawGridBackground(false);
+        lineChart.setTouchEnabled(true);
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleEnabled(true);
+        lineChart.setPinchZoom(true);
+        lineChart.setDrawMarkers(true);
 
         Legend legend = lineChart.getLegend();
         legend.setEnabled(false);
@@ -82,9 +89,6 @@ public class mygym extends AppCompatActivity {
         bmiTextView = findViewById(R.id.bmiTextView);
         bmiCategoryTextView = findViewById(R.id.bmiCategoryTextView);
 
-        // Sample BMI calculation
-        float userWeight = 70.0f; // Replace with actual user weight
-        float userHeight = 170.0f; // Replace with actual user height
         float userHeightMeters = userHeight / 100.0f;
         float bmi = userWeight / (userHeightMeters * userHeightMeters);
 
@@ -103,34 +107,35 @@ public class mygym extends AppCompatActivity {
     }
 
     public void onFacebookIconClicked(View view) {
-        String facebookUrl = "https://www.facebook.com"; // Replace with your Facebook URL
+        String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
         startActivity(intent);
     }
 
     public void onTwitterIconClicked(View view) {
-        String twitterUrl = "https://www.twitter.com"; // Replace with your Twitter URL
+        String twitterUrl = "https://www.youtube.com/watch?v=5upQGvf22qA";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
         startActivity(intent);
     }
 
     public void onInstagramIconClicked(View view) {
-        String instagramUrl = "https://www.instagram.com"; // Replace with your Instagram URL
+        String instagramUrl = "https://www.youtube.com/watch?v=o6jZ7IFt6mQ";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
         startActivity(intent);
     }
 
     public void onAuthenticatorClicked(View view) {
-        Intent intent = new Intent(this, QRScan.class); // Replace with your QRScan activity
+        Intent intent = new Intent(this, QRScan.class);
         startActivity(intent);
     }
 
     public void onExercisePlanClicked(View view) {
-        Intent intent = new Intent(this, WorkoutActivity.class); // Replace with your WorkoutActivity
+        Intent intent = new Intent(this, WorkoutActivity.class);
         startActivity(intent);
     }
+
     public void onMealPlanClicked(View view) {
-        Intent intent = new Intent(this, ExercisePlanActivity.class); // Replace with your WorkoutActivity
+        Intent intent = new Intent(this, ExercisePlanActivity.class);
         startActivity(intent);
     }
 }

@@ -29,6 +29,9 @@
         android:theme="@style/Theme.FitnessNearMe"
         tools:targetApi="31">
         <activity
+            android:name=".exerciseregime"
+            android:exported="false" />
+        <activity
             android:name=".GraphActivity"
             android:exported="false" />
         <activity
@@ -57,6 +60,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MapsActivity"

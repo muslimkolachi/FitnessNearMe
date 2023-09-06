@@ -1,6 +1,8 @@
 package com.example.fitnessnearme;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -171,6 +173,13 @@ public class WorkoutActivity extends AppCompatActivity {
             isWorkoutRunning = false;
             // Implement UI update for finished workout
             timerTextView.setText("Workout Done STATS UPDATED");
+
+            // Start the mygym activity
+            Intent intent = new Intent(this, mygym.class);
+            startActivity(intent);
+
+            // Finish the current activity (WorkoutActivity)
+            finish();
         }
     }
 
@@ -202,8 +211,14 @@ public class WorkoutActivity extends AppCompatActivity {
             timerTextView.setText("Workout Done");
             // Update the status text when the workout is finished
             statusTextView.setText("Workout Finished");
+            timerTextView.setText("Workout Done STATS UPDATED");
+
+
+                Intent intent = new Intent(this, mygym.class);
+                startActivity(intent);
+                finish();
+            }
         }
-    }
 
     private void updateUIWithExercise(FitnessExercise currentExercise) {
         exerciseNameTextView.setText(currentExercise.getName());

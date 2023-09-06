@@ -6,16 +6,30 @@
     android:gravity="center"
     >
 
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="240sp"
+        android:layout_height="240sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:alpha="100"
+        android:elevation="2dp"
+        android:rotationY="360"
+        android:scaleType="centerInside"
+        android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="wrap_content"
-        android:layout_height="699dp"
+        android:layout_width="332dp"
+        android:layout_height="554dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="30sp"
+        android:layout_marginTop="216dp"
+        android:layout_marginEnd="30sp"
         android:padding="16sp"
         android:scaleType="fitXY"
         android:src="@drawable/man" />

@@ -12,6 +12,9 @@ public class Exercise {
         this.imageUrl = imageUrl;
         this.repRange = repRange;
     }
+    public Exercise(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

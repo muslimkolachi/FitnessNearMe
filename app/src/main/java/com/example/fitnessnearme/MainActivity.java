@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
-
     private void login() {
         final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setTitle("Please wait");
@@ -96,8 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     if (responseBody.getSuccess().equals("1")) {
                         SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putBoolean(Constants.KEY_ISE_LOGGED_IN, true);
-
+                        editor.putBoolean(Constants.KEY_IS_LOGGED_IN, true);
 
                         UserDetailModel userDetail = responseBody.getUserDetailObject();
                         if (userDetail != null && userDetail.getUserDetails() != null && !userDetail.getUserDetails().isEmpty()) {
@@ -106,9 +104,8 @@ public class MainActivity extends AppCompatActivity {
                             editor.putFloat(Constants.KEY_USER_HEIGHT, userDetails.getHeight());
 
                             // Storing the FirstName and LastName in SharedPreferences
-                            editor.putString(Constants.KEY_USERNAME, userDetails.getFirstName() + " " + userDetails.getLastName());
+                            editor.putString(Constants.KEY_USERNAME, userDetails.getUsername());
                             editor.apply();
-
                             Toast.makeText(MainActivity.this, responseBody.getMessage(), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), LandingPage.class));
                             finish();
@@ -128,4 +125,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-}
+    }
+
