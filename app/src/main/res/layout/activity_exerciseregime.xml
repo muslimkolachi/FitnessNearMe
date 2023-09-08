@@ -9,8 +9,10 @@
     <!-- Logo ImageView -->
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300sp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="200sp"
+        android:scaleType="fitXY"
         android:src="@drawable/ssj" />
 
     <!-- "Ready to Go" Button -->
@@ -20,30 +22,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/logoImageView"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/logo"
+        android:backgroundTint="@color/cardview_dark_background"
         android:text="Ready to Go" />
-
-    <!-- NestedScrollView for Exercise Cards -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/exerciseScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/readyToGoButton">
-
-        <!-- LinearLayout for Exercise Cards -->
-        <LinearLayout
-            android:id="@+id/exerciseLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- Dynamically add exercise cards here -->
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
     <!-- ViewPager for Exercise Difficulty Levels -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/exerciseScrollView" />
+        android:layout_below="@id/readyToGoButton" />
 
+    <!-- TabLayout for switching between difficulty levels -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/readyToGoButton"
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
 </RelativeLayout>

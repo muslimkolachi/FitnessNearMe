@@ -42,7 +42,7 @@ public class ExercisePlanActivity extends AppCompatActivity {
         exerciseList = new ArrayList<>();
 
         // Set up ExerciseAdapter
-        exerciseAdapter = new ExerciseAdapter(exerciseList);
+        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(exerciseList, this);
         exerciseRecyclerView.setAdapter(exerciseAdapter);
 
         // Fetch exercise data from PHP script
@@ -65,8 +65,9 @@ public class ExercisePlanActivity extends AppCompatActivity {
                                 String description = exerciseJson.getString("description");
                                 String imageUrl = exerciseJson.getString("image_url");
                                 String repRange = exerciseJson.getString("rep_range");
+                                int gifResource = R.drawable.exercise1; // Replace with the appropriate GIF resource
+                                exerciseList.add(new Exercise(name, description, imageUrl, repRange, gifResource));
 
-                                exerciseList.add(new Exercise(name, description, imageUrl, repRange));
                             }
 
                             // Notify the adapter that the data has changed

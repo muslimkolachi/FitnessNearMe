@@ -12,19 +12,23 @@ import java.util.List;
 
 public class ExpertExerciseFragment extends Fragment {
 
+    public static ExpertExerciseFragment newInstance() {
+        return new ExpertExerciseFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_exercise, container, false);
 
-        // Create a list of Expert exercises
+        // Create a list of Expert exercises with GIF resource IDs
         List<Exercise> expertExercises = new ArrayList<>();
-        expertExercises.add(new Exercise("Expert Exercise 1"));
-        expertExercises.add(new Exercise("Expert Exercise 2"));
-        // Add more expert exercises as needed
+        expertExercises.add(new Exercise("Exercise 1", "Description 1", "Image URL 1", "12 reps", R.drawable.exercise1));
+        expertExercises.add(new Exercise("Exercise 2", "Description 2", "Image URL 2", "15 reps", R.drawable.exercise2));
+        // Add more exercises as needed
 
         // Initialize and set up the RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.exerciseRecyclerView);
-        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(expertExercises);
+        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(expertExercises,getContext());
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
