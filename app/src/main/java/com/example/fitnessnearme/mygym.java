@@ -30,7 +30,7 @@ public class mygym extends AppCompatActivity {
     CardView bmiCard;
     TextView bmiTextView;
     TextView bmiCategoryTextView;
-
+    public static float calculatedBMI = 0.0f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +92,8 @@ public class mygym extends AppCompatActivity {
         float userHeightMeters = userHeight / 100.0f;
         float bmi = userWeight / (userHeightMeters * userHeightMeters);
 
-        bmiTextView.setText(String.format("%.2f", bmi));
-
+         bmiTextView.setText(String.format("%.2f", bmi));
+        calculatedBMI = bmi;
         if (bmi < 18.5) {
             bmiCategoryTextView.setText("Underweight");
             bmiCard.setCardBackgroundColor(getResources().getColor(R.color.yellow));
@@ -107,19 +107,19 @@ public class mygym extends AppCompatActivity {
     }
 
     public void onFacebookIconClicked(View view) {
-        String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";
+        String facebookUrl = "https://www.facebook.com/people/Fitness_Near_Me/61551339500367/?mibextid=ZbWKwL";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
         startActivity(intent);
     }
 
     public void onTwitterIconClicked(View view) {
-        String twitterUrl = "https://www.youtube.com/watch?v=5upQGvf22qA";
+        String twitterUrl = "https://instagram.com/weare.responsible?utm_source=qr&igshid=OGU0MmVlOWVjOQ==";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
         startActivity(intent);
     }
 
     public void onInstagramIconClicked(View view) {
-        String instagramUrl = "https://www.youtube.com/watch?v=o6jZ7IFt6mQ";
+        String instagramUrl = "https://www.youtube.com/@dapoorking";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
         startActivity(intent);
     }

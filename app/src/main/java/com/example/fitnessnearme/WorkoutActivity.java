@@ -56,11 +56,11 @@ public class WorkoutActivity extends AppCompatActivity {
         statusTextView = findViewById(R.id.statusTextView);
 
         exerciseList = new ArrayList<>();
-        exerciseList.add(new FitnessExercise("Exercise 1", "Description 1", R.drawable.exercise1, "12 reps"));
-        exerciseList.add(new FitnessExercise("Exercise 2", "Description 2", R.drawable.exercise2, "15 reps"));
-        exerciseList.add(new FitnessExercise("Exercise 3", "Description 3", R.drawable.exercise3, "10 reps"));
-        exerciseList.add(new FitnessExercise("Exercise 4", "Description 4", R.drawable.ezgif_com_crop_5_, "20 reps"));
-        exerciseList.add(new FitnessExercise("Exercise 5", "Description 5", R.drawable.ezgif_com_crop_6_, "18 reps"));
+        exerciseList.add(new FitnessExercise("Burpees", "Pushup then Jump", R.drawable.exercise1, "12 reps"));
+        exerciseList.add(new FitnessExercise("ButtBridge", "LayDown and Raise you butt", R.drawable.exercise2, "15 reps"));
+        exerciseList.add(new FitnessExercise("BentOverRow", "BendOver and Row", R.drawable.exercise3, "10 reps"));
+        exerciseList.add(new FitnessExercise("StandingRun", "Try Run Without the moving", R.drawable.ezgif_com_crop_5_, "20 reps"));
+        exerciseList.add(new FitnessExercise("JumpingJacks", "Jump and raise hands while streching legs", R.drawable.ezgif_com_crop_6_, "18 reps"));
         exerciseList.add(new FitnessExercise("Exercise 6", "Description 6", R.drawable.ezgif_com_crop_10_, "15 reps"));
         exerciseList.add(new FitnessExercise("Exercise 7", "Description 7", R.drawable.ezgif_com_crop_9_, "12 reps"));
         exerciseList.add(new FitnessExercise("Exercise 8", "Description 8", R.drawable.ezgif_com_crop_8_, "16 reps"));

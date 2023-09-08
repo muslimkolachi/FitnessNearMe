@@ -13,6 +13,6 @@
         android:layout_gravity="center"
         android:contentDescription="Exercise GIF"/>
 
-    <!-- Other exercise information (name, description, etc.) TextViews can go here -->
+
 
 </LinearLayout>

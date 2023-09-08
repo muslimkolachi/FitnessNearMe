@@ -30,7 +30,7 @@ public class ExpertExerciseFragment extends Fragment {
 
         // Initialize and set up the RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.exerciseRecyclerView);
-        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(expertExercises,getContext());
+        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(expertExercises);
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

@@ -28,7 +28,7 @@ public class BeginnerExerciseFragment extends Fragment {
 
         // Initialize and set up the RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.exerciseRecyclerView);
-        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(beginnerExercises, getContext());
+        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(beginnerExercises);
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

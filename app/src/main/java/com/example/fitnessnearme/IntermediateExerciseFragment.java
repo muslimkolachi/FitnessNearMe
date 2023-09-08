@@ -28,7 +28,7 @@ public class IntermediateExerciseFragment extends Fragment {
 
         // Initialize and set up the RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.exerciseRecyclerView);
-        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(intermediateExercises,getContext());
+        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(intermediateExercises);
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

@@ -59,19 +59,19 @@ public class trysomethingnew extends AppCompatActivity {
 
 
         public void onFacebookIconClicked (View view){
-            String facebookUrl = "https://www.youtube.com/watch?v=5T1_PWX6odY";
+            String facebookUrl = "https://instagram.com/weare.responsible?utm_source=qr&igshid=OGU0MmVlOWVjOQ==";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
             startActivity(intent);
         }
 
         public void onTwitterIconClicked (View view){
-            String twitterUrl = "https://www.youtube.com/watch?v=5upQGvf22qA";
+            String twitterUrl = "https://instagram.com/weare.responsible?utm_source=qr&igshid=OGU0MmVlOWVjOQ==";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
             startActivity(intent);
         }
 
         public void onInstagramIconClicked (View view){
-            String instagramUrl = "https://www.youtube.com/watch?v=o6jZ7IFt6mQ";
+            String instagramUrl = "https://www.youtube.com/@dapoorking";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
             startActivity(intent);
         }

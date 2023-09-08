@@ -1,42 +1,45 @@
 package com.example.fitnessnearme;
 
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
+
+import java.io.InputStream;
 import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
+
     private List<Exercise> exerciseList;
-    private Context context;
 
-    public ExerciseAdapter(List<Exercise> exerciseList, Context context) {
+    public ExerciseAdapter(List<Exercise> exerciseList) {
         this.exerciseList = exerciseList;
-        this.context = context;
     }
-
 
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_item, parent, false);
-        return new ExerciseViewHolder(itemView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_exercise, parent, false);
+        return new ExerciseViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         Exercise exercise = exerciseList.get(position);
 
-        // Load the GIF into the ImageView using Glide
-        Glide.with(context)
-                .load(exercise.getGifResource())
-                .into(holder.exerciseGifImageView);
+        holder.exerciseNameTextView.setText(exercise.getName());
+        holder.exerciseDescriptionTextView.setText(exercise.getDescription());
+        holder.exerciseRepRangeTextView.setText(exercise.getRepRange());
 
-        // Set other exercise information (name, description, etc.) TextViews here
+        // Load exercise image asynchronously
+        new LoadExerciseImageTask(holder.exerciseImageView).execute(exercise.getImageUrl());
     }
 
     @Override
@@ -45,11 +48,45 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     }
 
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
-        ImageView exerciseGifImageView;
+        ImageView exerciseImageView;
+        TextView exerciseNameTextView;
+        TextView exerciseDescriptionTextView;
+        TextView exerciseRepRangeTextView;
 
-        public ExerciseViewHolder(View itemView) {
+        public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
-            exerciseGifImageView = itemView.findViewById(R.id.exerciseGifImageView);
+            exerciseImageView = itemView.findViewById(R.id.exerciseImageView);
+            exerciseNameTextView = itemView.findViewById(R.id.exerciseNameTextView);
+            exerciseDescriptionTextView = itemView.findViewById(R.id.exerciseDescriptionTextView);
+            exerciseRepRangeTextView = itemView.findViewById(R.id.exerciseRepRangeTextView);
+        }
+    }
+
+    private static class LoadExerciseImageTask extends AsyncTask<String, Void, Bitmap> {
+        private ImageView imageView;
+
+        public LoadExerciseImageTask(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            String imageUrl = urls[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream inputStream = new java.net.URL(imageUrl).openStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            }
         }
     }
 }

@@ -76,11 +76,14 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
         sensorManager.unregisterListener(this);
 
         // Save total step count to SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(PREF_TOTAL_STEP_COUNT, totalStepCount);
-        editor.apply();
+        try {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(PREF_TOTAL_STEP_COUNT, totalStepCount);
+            editor.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     private void startCounting() {
         counting = true;
         stepCount = 0;

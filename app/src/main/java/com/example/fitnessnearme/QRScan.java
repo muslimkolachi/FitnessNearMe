@@ -14,9 +14,11 @@ import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+
 import java.util.List;
 
 import android.Manifest;
+
 public class QRScan extends AppCompatActivity {
 
     private DecoratedBarcodeView barcodeView;
@@ -54,8 +56,16 @@ public class QRScan extends AppCompatActivity {
         @Override
         public void barcodeResult(BarcodeResult result) {
             if (result.getText() != null) {
-                if (result.getText().equalsIgnoreCase("pushups")) {
+                if (result.getText().equalsIgnoreCase("bench")) {
                     navigateToExerciseActivity();
+                } else if (result.getText().equalsIgnoreCase("butter")) {
+                    navigateToExercise2Activity();
+                } else if (result.getText().equalsIgnoreCase("cable")) {
+                    navigateToExercise3Activity();
+                } else if (result.getText().equalsIgnoreCase("smith")) {
+                    navigateToExercise4Activity();
+                } else if (result.getText().equalsIgnoreCase("leg")) {
+                    navigateToExercise5Activity();
                 }
             }
         }
@@ -68,6 +78,30 @@ public class QRScan extends AppCompatActivity {
 
     private void navigateToExerciseActivity() {
         Intent intent = new Intent(this, workoutR.class);
+        startActivity(intent);
+        finish(); // Optional: Finish this QRScan activity after navigation
+    }
+
+    private void navigateToExercise2Activity() {
+        Intent intent = new Intent(this, workout_2.class);
+        startActivity(intent);
+        finish(); // Optional: Finish this QRScan activity after navigation
+    }
+
+    private void navigateToExercise3Activity() {
+        Intent intent = new Intent(this, workout_3.class);
+        startActivity(intent);
+        finish(); // Optional: Finish this QRScan activity after navigation
+    }
+
+    private void navigateToExercise4Activity() {
+        Intent intent = new Intent(this, workout_4.class);
+        startActivity(intent);
+        finish(); // Optional: Finish this QRScan activity after navigation
+    }
+
+    private void navigateToExercise5Activity() {
+        Intent intent = new Intent(this, workout_5.class);
         startActivity(intent);
         finish(); // Optional: Finish this QRScan activity after navigation
     }

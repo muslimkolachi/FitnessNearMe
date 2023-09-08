@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,14 +34,21 @@ public class events extends AppCompatActivity {
     ImageView facebookIcon;
     ImageView twitterIcon;
     ImageView instagramIcon;
-
+    Button register;
+    public void onRegisterNowButtonClick(View view) {
+        // Retrieve event titles
+        List<String> eventTitles = getEventTitles(); // Get the event titles
+        Intent intent = new Intent(this, eventreg.class);
+        intent.putStringArrayListExtra("eventTitles", (ArrayList<String>) eventTitles);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_events);
-
+        register=findViewById(R.id.RegisterNow);
         recyclerView = findViewById(R.id.eventsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventList = new ArrayList<>();
@@ -50,25 +58,32 @@ public class events extends AppCompatActivity {
         facebookIcon = findViewById(R.id.facebookIcon);
         twitterIcon = findViewById(R.id.twitterIcon);
         instagramIcon = findViewById(R.id.instagramIcon);
-
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity
+                Intent intent = new Intent(events.this, eventreg.class);
+                startActivity(intent);
+            }
+        });
         facebookIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSocialMediaLink("https://www.youtube.com/watch?v=5T1_PWX6odY");
+                openSocialMediaLink("https://www.facebook.com/people/Fitness_Near_Me/61551339500367/?mibextid=ZbWKwL");
             }
         });
 
         twitterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSocialMediaLink("https://www.youtube.com/watch?v=5upQGvf22qA");
+                openSocialMediaLink("https://instagram.com/weare.responsible?utm_source=qr&igshid=OGU0MmVlOWVjOQ==");
             }
         });
 
         instagramIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSocialMediaLink("https://www.youtube.com/watch?v=o6jZ7IFt6mQ");
+                openSocialMediaLink("https://www.youtube.com/@dapoorking");
             }
         });
 
@@ -118,6 +133,13 @@ public class events extends AppCompatActivity {
             }
         }).start();
     }
+    private List<String> getEventTitles() {
+        List<String> titles = new ArrayList<>();
+        for (Event event : eventList) {
+            titles.add(event.getTitle());
+        }
+        return titles;
+    }
 
     private void parseEventsResponse(String jsonResponse) throws JSONException {
         JSONArray jsonArray = new JSONArray(jsonResponse);
@@ -150,4 +172,8 @@ public class events extends AppCompatActivity {
     public void sortEventsByTitle(View view) {
         eventAdapter.sortByTitle();
     }
+
 }
+
+
+

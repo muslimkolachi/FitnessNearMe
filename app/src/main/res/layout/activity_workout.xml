@@ -22,6 +22,7 @@
             android:layout_marginTop="30sp"
             android:contentDescription="Exercise Image"
             android:src="@drawable/testing2" />
+
         <TextView
             android:id="@+id/exerciseNameTextView"
             android:layout_width="wrap_content"
@@ -38,6 +39,15 @@
             android:textSize="30sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp" />
+
+        <!-- Add the BMI status TextView -->
+        <TextView
+            android:id="@+id/bmiStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/startButton"

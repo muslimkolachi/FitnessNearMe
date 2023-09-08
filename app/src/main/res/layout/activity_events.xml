@@ -46,10 +46,21 @@
         android:layout_marginRight="50sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_black"
         android:textColor="@color/logo"
         android:backgroundTint="@color/cardview_dark_background"
         android:text="Sort" />
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/RegisterNow"
+        android:layout_below="@id/logoImageView"
+        android:fontFamily="@font/poppins_black"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/logo"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:text="RegisterNow" />
 
     <LinearLayout
         android:id="@+id/socialMediaLayout"

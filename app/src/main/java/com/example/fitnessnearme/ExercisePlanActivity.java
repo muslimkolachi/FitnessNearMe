@@ -42,7 +42,7 @@ public class ExercisePlanActivity extends AppCompatActivity {
         exerciseList = new ArrayList<>();
 
         // Set up ExerciseAdapter
-        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(exerciseList, this);
+        exerciseAdapter = new ExerciseAdapter(exerciseList);
         exerciseRecyclerView.setAdapter(exerciseAdapter);
 
         // Fetch exercise data from PHP script
