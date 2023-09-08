@@ -75,6 +75,9 @@ public class events extends AppCompatActivity {
         // Fetch events data from the PHP script
         fetchEventsData();
     }
+    public void onSortButtonClick(View view) {
+        eventAdapter.sortByDate();
+    }
 
     private void fetchEventsData() {
         // Start an asynchronous task to fetch the events data

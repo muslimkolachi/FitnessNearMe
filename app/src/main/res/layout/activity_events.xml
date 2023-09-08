@@ -39,21 +39,17 @@
 
     </ScrollView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sortButton"
+        android:layout_below="@id/logoImageView"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-android:fontFamily="@font/poppins_bold"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="onSortButtonClick"
-        android:layout_below="@id/logoImageView"
         android:textColor="@color/logo"
         android:backgroundTint="@color/cardview_dark_background"
         android:text="Sort" />
+
 
     <LinearLayout
         android:id="@+id/socialMediaLayout"
@@ -93,5 +89,29 @@ android:fontFamily="@font/poppins_bold"
         <!-- Add more social media icons as needed -->
 
     </LinearLayout>
+
+    <!-- Edit button for admin users -->
+    <ImageView
+        android:id="@+id/editButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_toEndOf="@id/sortButton"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/logoImageView"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="onEditButtonClick" />
+
+    <!-- Delete button for admin users -->
+    <ImageView
+        android:id="@+id/deleteButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_toEndOf="@id/editButton"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/logoImageView"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="onDeleteButtonClick" />
 
 </RelativeLayout>

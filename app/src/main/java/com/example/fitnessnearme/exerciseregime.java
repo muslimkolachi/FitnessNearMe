@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class exerciseregime extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
