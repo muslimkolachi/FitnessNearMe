@@ -9,4 +9,7 @@
     <color name="green">#008000</color>
     <color name="red">#FF0000</color>
     <color name="blue">#0000FF</color>
+    <color name="colorUnderweight">#FFA500</color>
+    <color name="colorHealthy">#008000</color>
+    <color name="colorOverweight">#FF0000</color>
 </resources>

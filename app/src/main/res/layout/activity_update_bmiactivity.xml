@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateBMIActivity"
+    android:background="@drawable/background">
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="240sp"
+        android:layout_height="240sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:alpha="100"
+        android:elevation="2dp"
+        android:rotationY="360"
+        android:scaleType="centerInside"
+        android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
+
+    <EditText
+
+        android:id="@+id/heightEditText"
+        android:layout_below="@id/logoImageView"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:hint="Height (in cm)"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/poppins_black"
+        />
+
+    <EditText
+        android:id="@+id/weightEditText"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:hint="Weight (in kg)"
+        android:layout_below="@id/heightEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/poppins_black"
+        />
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weightEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
+        android:text="Update"
+        android:fontFamily="@font/poppins_black"
+        android:textColor="@color/logo"
+        android:backgroundTint="@color/cardview_dark_background"
+        />
+
+    <TextView
+        android:id="@+id/bmiTextView"
+        android:fontFamily="@font/poppins_black"
+        android:autoSizeTextType="uniform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/updateButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:fontFamily="@font/poppins_black"
+        android:autoSizeTextType="uniform"
+        android:id="@+id/bmiCategoryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bmiTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        />
+</RelativeLayout>

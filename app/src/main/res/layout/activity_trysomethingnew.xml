@@ -1,13 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        map:liteMode="false"
-        map:mapType="normal" />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="240sp"
+        android:layout_height="240sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/fitness__sport__workout_logo_design___1__removebg_preview" />
+
+    <ImageView
+        android:id="@+id/steppy"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/logoImageView"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginRight="90sp"
+        android:clickable="true"
+        android:onClick="steppy"
+        android:src="@drawable/steps" />
+    <TextView
+        android:id="@+id/step"
+        android:layout_width="174dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/steppy"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="21dp"
+
+        android:autoSizeTextType="uniform"
+        android:clickable="true"
+        android:fontFamily="@font/poppins_bold"
+        android:text="  HEADING OUT?"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
+
+
+    <ImageView
+        android:id="@+id/mappy"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/step"
+        android:onClick="mappy"
+        android:src="@drawable/mappy" />
+    <TextView
+        android:id="@+id/tryout"
+        android:layout_width="172dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/mappy"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+        android:clickable="true"
+        android:text="Find a New Gym"
+        android:fontFamily="@font/poppins_bold"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
+    <ImageView
+        android:id="@+id/bmi"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tryout"
+        android:onClick="mappy"
+        android:src="@drawable/bmi" />
+    <TextView
+        android:id="@+id/bmii"
+        android:layout_width="180dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/bmi"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+        android:clickable="true"
+        android:onClick="bmii"
+        android:text="Calculate Your BMI"
+        android:fontFamily="@font/poppins_bold"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
+    <LinearLayout
+        android:id="@+id/socialMediaLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_below="@id/bmii"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/facebookIcon"
+            android:layout_width="40sp"
+            android:layout_height="80sp"
+            android:src="@drawable/iconmonstr_facebook_messenger_2"
+            android:clickable="true"
+            android:onClick="onFacebookIconClicked" />
+
+        <ImageView
+            android:id="@+id/twitterIcon"
+            android:layout_width="40sp"
+            android:layout_height="80sp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/iconmonstr_twitter_4"
+            android:clickable="true"
+            android:onClick="onTwitterIconClicked" />
+
+
+        <ImageView
+            android:id="@+id/instagramIcon"
+            android:layout_width="40sp"
+            android:layout_height="80sp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/iconmonstr_instagram_14"
+            android:clickable="true"
+            android:onClick="onInstagramIconClicked" />
+
+
+        <!-- Add more social media icons as needed -->
+
+    </LinearLayout>
+
 </RelativeLayout>
+
+</ScrollView>

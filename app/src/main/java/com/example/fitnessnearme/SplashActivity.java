@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long SPLASH_DELAY = 3300; // 3.3 seconds
+    private static final long SPLASH_DELAY = 3100; // 3.1 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,7 +22,7 @@ public class BeginnerExerciseFragment extends Fragment {
 
         // Create a list of Beginner exercises with GIF resource IDs
         List<Exercise> beginnerExercises = new ArrayList<>();
-        beginnerExercises.add(new Exercise("Exercise 1", "Description 1", "Image URL 1", "12 reps", R.drawable.exercise1));
+        beginnerExercises.add(new Exercise("Exercise 1", "LOOK AT ME", "Image URL 1", "12 reps", R.drawable.ssj));
         beginnerExercises.add(new Exercise("Exercise 2", "Description 2", "Image URL 2", "15 reps", R.drawable.exercise2));
         // Add more exercises as needed
 

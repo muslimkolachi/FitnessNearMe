@@ -38,4 +38,6 @@ public class Exercise {
     public long getDuration() {
         return 0;
     }
+
 }
+
