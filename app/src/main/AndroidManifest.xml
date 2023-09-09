@@ -29,6 +29,9 @@
         android:theme="@style/Theme.FitnessNearMe"
         tools:targetApi="31">
         <activity
+            android:name=".CustomExercise"
+            android:exported="false" />
+        <activity
             android:name=".eventreg"
             android:exported="false" />
         <activity

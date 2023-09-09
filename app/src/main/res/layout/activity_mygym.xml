@@ -87,7 +87,7 @@
         android:autoSizeTextType="uniform"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/cardview_dark_background"
-        android:text="Calories Burned this Week"
+        android:text="Current Weight and Height"
         android:layout_marginTop="12sp"
         android:textAlignment="center"
         android:textColor="@color/logo" />

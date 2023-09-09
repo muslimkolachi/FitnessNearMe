@@ -37,10 +37,13 @@ public class mygym extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_mygym);
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+        int exerciseCount = preferences.getInt(Constants.KEY_EXERCISE_COUNT, 0);
+
 
         LineChart lineChart = findViewById(R.id.line_chart);
 
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+
         float userWeight = preferences.getFloat(Constants.KEY_USER_WEIGHT, 0.0f);
         float userHeight = preferences.getFloat(Constants.KEY_USER_HEIGHT, 0.0f);
 

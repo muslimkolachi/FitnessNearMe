@@ -92,13 +92,13 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void onTwitterIconClicked(View view) {
-        String twitterUrl = "https://instagram.com/weare.responsible?utm_source=qr&igshid=OGU0MmVlOWVjOQ==";
+        String twitterUrl = "https://www.youtube.com/@dapoorking";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
         startActivity(intent);
     }
 
     public void onInstagramIconClicked(View view) {
-        String instagramUrl = "https://www.youtube.com/@dapoorking";
+        String instagramUrl = "https://instagram.com/weare.responsible?utm_source=qr&igshid=OGU0MmVlOWVjOQ==";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramUrl));
         startActivity(intent);
     }

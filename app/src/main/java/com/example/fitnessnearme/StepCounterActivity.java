@@ -75,7 +75,7 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
         super.onPause();
         sensorManager.unregisterListener(this);
 
-        // Save total step count to SharedPreferences
+        // Save total step count to SharedPreferences when the application is paused
         try {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(PREF_TOTAL_STEP_COUNT, totalStepCount);
@@ -84,6 +84,7 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
             e.printStackTrace();
         }
     }
+
     private void startCounting() {
         counting = true;
         stepCount = 0;
@@ -101,7 +102,9 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
 
         if (canDetectStep && acceleration > accelerationThreshold) {
             stepCount++;
+            totalStepCount++; // Update the total step count
             stepCountTextView.setText("Step Count: " + stepCount);
+            totalStepCountTextView.setText("Total Steps: " + totalStepCount);
             canDetectStep = false;
 
             new Handler().postDelayed(() -> canDetectStep = true, cooldownMillis);

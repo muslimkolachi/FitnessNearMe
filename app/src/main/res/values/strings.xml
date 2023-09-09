@@ -15,5 +15,27 @@
 
     <string name="api">AIzaSyCOsuwVaLRN4vmAd1MMdIYol2_GGlhrpfA</string>
     <string name="show_my_location">Show My Location</string>
+    <string-array name="exercises">
+        <item>Pushups</item>
+        <item>Pullups</item>
+        <item>dips</item>
+        <item>jumpingjacks</item>
+        <item>chinups</item>
+        <item>burpees</item>
+        <item>Forward Rolls</item>
+        <item>Backward Rolls</item>
+        <item>Shrimps</item>
+        <item>Exercise 2</item>
+        <item>Exercise 1</item>
+        <item>Exercise 2</item>
+        <item>Exercise 1</item>
+        <item>Exercise 2</item>
+        <item>Exercise 1</item>
+        <item>Exercise 2</item>
+        <item>Exercise 1</item>
+        <item>Exercise 2</item>
+        <!-- Add 18 more exercises -->
+    </string-array>
+
     >
 </resources>

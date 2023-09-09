@@ -95,11 +95,57 @@
         android:fontFamily="@font/poppins_bold"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textColor="@color/logo" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"
+        android:layout_below="@id/bmii"
+
+        android:layout_centerInParent="true"></com.github.mikephil.charting.charts.LineChart>
+
+    <TextView
+        android:id="@+id/say"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line_chart"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+        android:clickable="true"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Your Current Progress"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
+    <ImageView
+        android:id="@+id/say1"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/say"
+        android:onClick="custom"
+        android:src="@drawable/getfit1" />
+    <TextView
+        android:id="@+id/custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/say1"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+
+        android:fontFamily="@font/poppins_bold"
+        android:text="Start a Custom Exercise"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/logo" />
+
     <LinearLayout
         android:id="@+id/socialMediaLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_below="@id/bmii"
+       android:layout_below="@id/custom"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:gravity="center">

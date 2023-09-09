@@ -3,6 +3,7 @@ package com.example.fitnessnearme;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -34,13 +35,16 @@ public class WorkoutActivity extends AppCompatActivity {
     private Button finishButton;
     private RelativeLayout statusBar;
     private TextView statusTextView;
-
+    private Button test;
+    private int exercisesCompleted = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_workout);
+        currentExerciseIndex = 0;
+        isWorkoutRunning = false;
 
         exerciseImageView = findViewById(R.id.exerciseImageView);
         exerciseNameTextView = findViewById(R.id.exerciseNameTextView);
@@ -51,10 +55,17 @@ public class WorkoutActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         finishButton = findViewById(R.id.finishButton);
         skipButton = findViewById(R.id.skipButton);
-
+        test=findViewById(R.id.betatest);
         statusBar = findViewById(R.id.statusBar);
         statusTextView = findViewById(R.id.statusTextView);
-
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the new activity
+                Intent intent = new Intent(WorkoutActivity.this, exerciseregime.class);
+                startActivity(intent);
+            }
+        });
         exerciseList = new ArrayList<>();
         exerciseList.add(new FitnessExercise("Burpees", "Pushup then Jump", R.drawable.exercise1, "12 reps"));
         exerciseList.add(new FitnessExercise("ButtBridge", "LayDown and Raise you butt", R.drawable.exercise2, "15 reps"));
@@ -171,8 +182,13 @@ public class WorkoutActivity extends AppCompatActivity {
         if (isWorkoutRunning && timer != null) {
             timer.cancel();
             isWorkoutRunning = false;
-            // Implement UI update for finished workout
-            timerTextView.setText("Workout Done STATS UPDATED");
+
+            // Save exercise data to SharedPreferences
+            SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(Constants.KEY_EXERCISE_COUNT, currentExerciseIndex + 1);
+            // You can save other exercise-related data here if needed.
+            editor.apply();
 
             // Start the mygym activity
             Intent intent = new Intent(this, mygym.class);
@@ -190,12 +206,13 @@ public class WorkoutActivity extends AppCompatActivity {
 
             // Set the countdown timer to 30 seconds (in milliseconds)
             final long totalTimeInMillis = 30000;
-
+            exercisesCompleted++;
             timer = new CountDownTimer(totalTimeInMillis, 1000) {
                 public void onTick(long millisUntilFinished) {
                     timeRemainingInMillis = millisUntilFinished;
                     long secondsRemaining = millisUntilFinished / 1000;
                     timerTextView.setText(String.valueOf(secondsRemaining));
+
                 }
 
                 public void onFinish() {
@@ -211,7 +228,7 @@ public class WorkoutActivity extends AppCompatActivity {
             timerTextView.setText("Workout Done");
             // Update the status text when the workout is finished
             statusTextView.setText("Workout Finished");
-            timerTextView.setText("Workout Done STATS UPDATED");
+            timerTextView.setText("Workout Done \n TOTAL CALORIES BURNED:\n 325Kcal");
 
 
                 Intent intent = new Intent(this, mygym.class);
